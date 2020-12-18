@@ -1,0 +1,11 @@
+﻿Lab1 uppgift 1
+
+Erik Svensson, Olle Nordgren
+
+Vi har valt att inte använda Makefile eller några headerfiler då detta inte var ett krav på labben. Allt som krävs ligger I en fil. Dock används standard bibliotek I koden.
+
+Vid kompilation måste man använda: 
+
+gcc lab1_1v4.c
+
+Vid körning måste man mata in antalet spelare.
