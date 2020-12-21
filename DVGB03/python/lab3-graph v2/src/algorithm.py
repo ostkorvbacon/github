@@ -58,8 +58,6 @@ def dijkstra(adjlist, start_node):
     e = []
     return d, e
 
-
-
 def prim(adjlist, start_node):
     '''
     Returns the result of running Prim's algorithm as two N-length lists:
@@ -90,98 +88,68 @@ def prim(adjlist, start_node):
     l = []
     c = []
     q = []
-    si=0
-    n2=0
-    n3=0
-    first=True
-    node=adjlist
-    while node.name()!=None:
+    si = 0
+    n2 = 0
+    n3 = 0
+    first = True
+    node = adjlist
+    while node.name() != None:
         l.append(inf)
         c.append(None)
         q.append(node)
+        node = node.tail()
 
-        node=node.tail()
+    q2 = copy.deepcopy(q)
+    l2 = copy.deepcopy(l)
+    i = 0
+    while i < len(q):
+        if q[i].name() == start_node:
+            si = i
+            l[i] = 0
+            l2[i] = 0
+        i = i + 1
 
-    q2=copy.deepcopy(q)
-    l2=copy.deepcopy(l)
-
-
-    i=0
-    while i<len(q):
-        if q[i].name()==start_node:
-            si=i
-            l[i]=0
-            l2[i]=0
-
-        i=i+1
-
-
-    while len(q)!=0:
-
-        n=l2.index(min_l(l2))
-
-        u=q[n]
-        v=u.edges()
-
-        while v.dst()!=None:
-
-
-            i=0
-
-            while i<len(q):
-
-                if v.dst()==q[i].name():
-                    n2=find_dst(q[i].name(),q2)
-
-                    if v.weight()<l[n2]:
-                        l[n2]=v.weight()
-                        n3=find_dst(q[i].name(),q)
-                        l2[n3]=v.weight()
-
-                        c[n2]=u.name()
-                i=i+1
-
-            v=v.tail()
-
+    while len(q) != 0:
+        n = l2.index(min_l(l2))
+        u = q[n]
+        v = u.edges()
+        while v.dst() != None:
+            i = 0
+            while i < len(q):
+                if v.dst() == q[i].name():
+                    n2 = find_dst(q[i].name(),q2)
+                    if v.weight() < l[n2]:
+                        l[n2] = v.weight()
+                        n3 = find_dst(q[i].name(),q)
+                        l2[n3] = v.weight()
+                        c[n2] = u.name()
+                i = i + 1
+            v = v.tail()
         q.remove(u)
-
         l2.remove(l2[n])
-
-
-
-
-
-
-    i=0
-    while i<len(l):
-        if l[i]==inf:
-            l[i]=float('inf')
-        i=i+1
-
-    l[si]=None
+    i = 0
+    while i < len(l):
+        if l[i] == inf:
+            l[i] = float('inf')
+        i = i + 1
+    l[si] = None
     return l,c
 
-
-
 def find_dst(name,q2):
-    i=0
-
-    while i<len(q2):
-        if name==q2[i].name():
-
+    i = 0
+    while i < len(q2):
+        if name == q2[i].name():
             return i
 
-        i=i+1
-
+        i = i + 1
 
 def min_l(l):
-    i=0
-    m=inf
-    while i<len(l):
-        if l[i]<m:
-            m=l[i]
-        i=i+1
-
+    i = 0
+    m = inf
+    while i < len(l):
+        if l[i] < m:
+            m = l[i]
+        i = i + 1
     return m
 
 if __name__ == "__main__":

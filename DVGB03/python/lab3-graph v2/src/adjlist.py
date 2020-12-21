@@ -105,7 +105,6 @@ class AdjacencyList:
         '''
         self._edges = edges
         return self.head()
-
     ###
     # Node operations
     ###
@@ -128,60 +127,42 @@ class AdjacencyList:
             return self.head()
 
         while True:
-
             if temp.tail().name() == None:
                 newNode=AdjacencyList(name)
-
                 temp.cons(newNode)
-
                 return self.head()
 
             if name<temp.tail().name():
                 break
-
             else:
                 temp = temp.tail()
-
         newNode = AdjacencyList(name)
         newtail = temp.tail()
         newNode.cons(newtail)
         temp.cons(newNode)
-
-        print(self.name())
-
         return self.head()
 
-
     def return_n(self, name):
-
         if self.name() == None:
             return False
-        if name == self.head().name():
 
+        if name == self.head().name():
             return self
 
         return self.tail().return_n(name)
 
-
     def return_node(self, name):
-
-
         if name == self.tail().head().name():
-
             return self
 
         return self.tail().return_node(name)
 
-
     def delete_node(self, name):
         '''
         Deletes the node named `name` if it is a member.
-
         Returns an adjacency list head.
         '''
-
         if self.name() == name and self.tail() == None:
-
             self.set_name(None)
             return self.head()
 
@@ -193,9 +174,7 @@ class AdjacencyList:
             return self.head()
 
         parent = self.return_node(name)
-
         parent.cons(parent.tail().tail())
-
         return self.head()
 
     def find_node(self, name):
@@ -215,7 +194,6 @@ class AdjacencyList:
         if self.name() == None:
             return 0
         return 1+self.tail().node_cardinality()
-
     ###
     # Edge operations
     ###
@@ -227,7 +205,6 @@ class AdjacencyList:
 
         Returns an adjacency list head.
         '''
-
         if not self.find_node(dst):
             return self.head()
         return self._add_edge(src, dst, weight)
@@ -243,47 +220,37 @@ class AdjacencyList:
         '''
         if self.find_node(src) == False:
             return self.head()
+
         if self.find_edge(src,dst) == True:
             edge = self.return_edge(src,dst)
             edge.set_weight(weight)
             return self.head()
 
         snode = self.return_n(src)
-
         ed = Edge(dst,weight)
         ed2 = snode.edges()
 
         if snode.edges().dst() == None:
-
             snode.set_edges(ed)
             return self.head()
 
         if dst < snode.edges().dst():
-
             ed.cons(snode.edges())
             snode.set_edges(ed)
-
             return self.head()
 
         while True:
-
-
             if ed2.tail().dst() == None:
-
                 ed2.cons(ed)
                 return self.head()
 
             if dst < ed2.tail().dst():
-
                 ed.cons(ed2.tail())
                 ed2.cons(ed)
                 return self.head()
 
             ed2 = ed2.tail()
-
         return self.head()
-
-
 
     def delete_edge(self, src, dst):
         '''
