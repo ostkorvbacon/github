@@ -27,18 +27,18 @@ class AdjacencyList:
         '''
         self._name = name # head node name
         self._info = info # head node info
-        if self.name()!=None:
+        if self.name()!= None:
             self._tail = AdjacencyList() # empty tail
             self._edges = Edge() # empty list of edges
-   
-            
-        
+
+
+
 
     def is_empty(self):
         '''
         Returns true if this adjacency list is empty.
         '''
-        if self.name()==None:
+        if self.name() == None:
             return True
         return False
 
@@ -116,62 +116,62 @@ class AdjacencyList:
 
         Returns an adjacency list head.
         '''
-        temp=self
-        if self.is_empty()==True:
-            node=AdjacencyList(name)
-            return node.head()
-        
+        temp = self
+        if self.is_empty()neNodeTrue:
+            newNode = AdjacencyList(name)
+            return newNode.head()
+
         if name<temp.name():
-            node=AdjacencyList(name)
-            node.cons(temp)
-            self=node
+            newNode = AdjacencyList(name)
+            newNode.cons(temp)
+            self = newNode
             return self.head()
-        
+
         while True:
-            
-            if temp.tail().name()==None:
-                node=AdjacencyList(name)
-                
-                temp.cons(node)
-                
+
+            if temp.tail().name() == None:
+                newNode=AdjacencyList(name)
+
+                temp.cons(newNode)
+
                 return self.head()
-            
+
             if name<temp.tail().name():
                 break
 
             else:
-                temp=temp.tail()
-        
-        node=AdjacencyList(name)
-        newtail=temp.tail()
-        node.cons(newtail)
-        temp.cons(node)
-        
+                temp = temp.tail()
+
+        newNode = AdjacencyList(name)
+        newtail = temp.tail()
+        newNode.cons(newtail)
+        temp.cons(newNode)
+
         print(self.name())
-        
+
         return self.head()
-       
-   
+
+
     def return_n(self, name):
-       
-        if self.name()==None:
+
+        if self.name() == None:
             return False
         if name == self.head().name():
-            
+
             return self
-        
+
         return self.tail().return_n(name)
-      
-    
+
+
     def return_node(self, name):
-       
-        
+
+
         if name == self.tail().head().name():
-            
+
             return self
-        
+
         return self.tail().return_node(name)
-      
+
 
     def delete_node(self, name):
         '''
@@ -179,29 +179,25 @@ class AdjacencyList:
 
         Returns an adjacency list head.
         '''
-       
-        if self.name()==name and self.tail()==None:
-            
+
+        if self.name() == name and self.tail() == None:
+
             self.set_name(None)
             return self.head()
-        
-        if self.name()==name:
-            self=self.tail()
+
+        if self.name() == name:
+            self = self.tail()
             return self.head()
-            
-        if self.find_node(name)==False:
+
+        if self.find_node(name) == False:
             return self.head()
-        
-        parent=self.return_node(name)
-        
+
+        parent = self.return_node(name)
+
         parent.cons(parent.tail().tail())
-        
+
         return self.head()
 
-    
-
-    
-    
     def find_node(self, name):
         '''
         Returns True if the node named `name` is a member.
@@ -216,7 +212,7 @@ class AdjacencyList:
         '''
         Returns the number of nodes.
         '''
-        if self.name()==None:
+        if self.name() == None:
             return 0
         return 1+self.tail().node_cardinality()
 
@@ -231,7 +227,7 @@ class AdjacencyList:
 
         Returns an adjacency list head.
         '''
-        
+
         if not self.find_node(dst):
             return self.head()
         return self._add_edge(src, dst, weight)
@@ -245,49 +241,49 @@ class AdjacencyList:
 
         Pre: `dst` is a member of this adjacency list.
         '''
-        if self.find_node(src)==False:
+        if self.find_node(src) == False:
             return self.head()
-        if self.find_edge(src,dst)==True:
-            edge=self.return_edge(src,dst)
+        if self.find_edge(src,dst) == True:
+            edge = self.return_edge(src,dst)
             edge.set_weight(weight)
             return self.head()
-            
-        snode=self.return_n(src)
-        
-        ed=Edge(dst,weight)
-        ed2=snode.edges()
-        
-        if snode.edges().dst()==None:
-            
+
+        snode = self.return_n(src)
+
+        ed = Edge(dst,weight)
+        ed2 = snode.edges()
+
+        if snode.edges().dst() == None:
+
             snode.set_edges(ed)
             return self.head()
-        
-        if dst<snode.edges().dst():
-           
+
+        if dst < snode.edges().dst():
+
             ed.cons(snode.edges())
             snode.set_edges(ed)
-            
+
             return self.head()
-        
+
         while True:
-            
-        
-            if ed2.tail().dst()==None:
-                
+
+
+            if ed2.tail().dst() == None:
+
                 ed2.cons(ed)
                 return self.head()
 
-            if dst<ed2.tail().dst():
-                
+            if dst < ed2.tail().dst():
+
                 ed.cons(ed2.tail())
                 ed2.cons(ed)
                 return self.head()
-                
-            ed2=ed2.tail()
-        
+
+            ed2 = ed2.tail()
+
         return self.head()
-        
-    
+
+
 
     def delete_edge(self, src, dst):
         '''
@@ -295,17 +291,17 @@ class AdjacencyList:
 
         Returns an adjacency list head.
         '''
-        if self.find_edge(src,dst)==False:
+        if self.find_edge(src,dst) == False:
             return self.head()
-        ed=self.return_edge(src,dst)
-        ed2=ed.tail()
+        ed = self.return_edge(src,dst)
+        ed2 = ed.tail()
         ed.set_dst(ed2.dst())
         ed.set_weight(ed2.weight())
-        if ed2.dst()==None:
-            ed.cons(Edge())  
+        if ed2.dst() == None:
+            ed.cons(Edge())
         else:
             ed.cons(ed2.tail())
-        
+
         return self.head()
 
     def delete_edges(self, name):
@@ -314,65 +310,62 @@ class AdjacencyList:
 
         Returns an adjacency list head.
         '''
-        arr=self.list_nodes()
+        arr = self.list_nodes()
         i=0
-        while i<len(arr):
+        while i < len(arr):
             self.delete_edge(arr[i],name)
-            i=i+1
-                
+            i = i+1
+
         return self.head()
-    
+
     def return_edge(self, src, dst):
         '''
         Returns edge if there's an edge from node `src` to node `dst`.
         '''
-        if self.find_node(src)==True:
-            node=self.return_n(src)
-            if node.edges().dst()==dst:
+        if self.find_node(src) == True:
+            node = self.return_n(src)
+            if node.edges().dst() == dst:
                 return node.edges()
-            edge=node.edges()
-            while edge.dst()!=None:
-                
-                if edge.dst()==dst:
+            edge = node.edges()
+            while edge.dst() != None:
+
+                if edge.dst() == dst:
                     return edge
-                edge=edge.tail()
-            
-                
+                edge = edge.tail()
+
         return False
-    
-  
 
     def find_edge(self, src, dst):
         '''
         Returns True if there's an edge from node `src` to node `dst`.
         '''
-        if self.find_node(src)==True:
-            node=self.return_n(src)
-            if node.edges().dst()==dst:
+        if self.find_node(src) == True:
+            node = self.return_n(src)
+            if node.edges().dst() == dst:
                 return True
-            edge=node.edges()
-            while edge.dst()!=None:
-                
-                if edge.dst()==dst:
+            edge = node.edges()
+            while edge.dst() != None:
+
+                if edge.dst() == dst:
                     return True
-                edge=edge.tail()
-            
-                
+                edge = edge.tail()
+
+
         return False
 
     def edge_cardinality(self):
         '''
         Returns the number of edges.
         '''
-        n=0
-        node=self
-        while node.name()!=None:
-            ed=node.edges()
-            while ed.dst()!=None:
-                n=n+1
-                ed=ed.tail()
-            node=node.tail()
-                
+        n = 0
+        node = self
+        while node.name() != None:
+            ed = node.edges()
+            while ed.dst() != None:
+                n = n + 1
+                ed = ed.tail()
+            node = node.tail()
+
         return n
 
     def self_loops(self):
@@ -380,20 +373,20 @@ class AdjacencyList:
         Returns the number of loops in this adjacency list.  Note that a loop is
         defined as a node that has an edge towards itself, e.g., A->A.
         '''
-        arr=self.list_nodes()
-        i=0
-        n=0
-        while i<len(arr):
-            if self.find_edge(arr[i],arr[i])==True:
-                n=n+1
-            i=i+1
+        arr = self.list_nodes()
+        i = 0
+        n = 0
+        while i < len(arr):
+            if self.find_edge(arr[i],arr[i]) == True:
+                n = n + 1
+            i = i + 1
         return n
 
     def adjacency_matrix(self):
         '''
         Returns this adjacency list as an adjacency matrix.  For example,
         consider the following adjacency list where all edges have weight=1.
-        
+
         a: a->b->c
         |
         v
@@ -426,30 +419,30 @@ class AdjacencyList:
         # In case you'd like to create an inf-initialized n x n matrix
         n = self.node_cardinality()
         matrix = [ [inf]*n for i in range(n) ]
-        node=self
-        ed=self.edges()
-        while  node.name()!=None:
-            ed=node.edges()
-            nsrc=self.position(node.name())
-            while ed.dst()!=None:
-                
-                ndst=self.position(ed.dst())
-                matrix[nsrc][ndst]=ed.weight()
-                ed=ed.tail()
-            node=node.tail()
-            
+        node = self
+        ed = self.edges()
+        while  node.name() != None:
+            ed = node.edges()
+            nsrc = self.position(node.name())
+            while ed.dst() != None:
+
+                ndst = self.position(ed.dst())
+                matrix[nsrc][ndst] = ed.weight()
+                ed = ed.tail()
+            node = node.tail()
+
         return matrix
-    
+
     def position(self,name):
         # returns the position of name in list. Usfull as matrix is a list of lists
-        arr=self.list_nodes()
+        arr = self.list_nodes()
         i=0
-        while i<len(arr):
-            if arr[i]==name:
+        while i < len(arr):
+            if arr[i] == name:
                 return i
-            i=i+1
+            i = i + 1
         return False
-    
+
     def list_nodes(self):
         '''
         Returns a list of node names in lexicographical order.
@@ -478,18 +471,18 @@ class Edge:
         '''
         Initializes a new edge sequence.  It is considered empty if no head edge
         is provided, i.e., dst is set to None.
-        '''
         self._dst = dst # where is this edge's destination
+        '''
         self._weight = weight # what is the weight of this edge
         if not self.head().is_empty():
-            self._tail= Edge() # empty edge tail
+            self._tail = Edge() # empty edge tail
 
     def is_empty(self):
         '''
         Returns true if this edge is empty.
         '''
         return self._dst is None
-    
+
     def head(self):
         '''
         Returns the head of this edge.
@@ -538,7 +531,7 @@ class Edge:
         '''
         self._weight = weight
         return self.head()
-    
+
     ###
     # Operations
     ###
@@ -585,6 +578,6 @@ class Edge:
             return []
         return [(src, self.head().dst(), self.weight())] + self.tail().list(src)
 
-if __name__ == "__main__":
+if __name__  ==  "__main__":
     log.critical("module contains no main method")
     sys.exit(1)
