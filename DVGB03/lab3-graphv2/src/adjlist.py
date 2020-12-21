@@ -116,7 +116,7 @@ class AdjacencyList:
         Returns an adjacency list head.
         '''
         temp = self
-        if self.is_empty()neNodeTrue:
+        if self.is_empty() == True:
             newNode = AdjacencyList(name)
             return newNode.head()
 
@@ -438,8 +438,8 @@ class Edge:
         '''
         Initializes a new edge sequence.  It is considered empty if no head edge
         is provided, i.e., dst is set to None.
-        self._dst = dst # where is this edge's destination
         '''
+        self._dst = dst # where is this edge's destination
         self._weight = weight # what is the weight of this edge
         if not self.head().is_empty():
             self._tail = Edge() # empty edge tail
