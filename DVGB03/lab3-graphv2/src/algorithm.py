@@ -55,31 +55,33 @@ def dijkstra(adjlist, start_node):
     '''
     d = []
     e = []
+    e2 = []
     qNode = []
     node = adjlist
-    d, e = init(node, start_node)
+    d, e, e2= init(node, start_node)
     d2 = copy.deepcopy(d)
     qNode = insert(node)
     qNode2 = copy.deepcopy(qNode)
+    k = 0
+    n3 = d.index(0)
     while len(qNode) > 0:
         index = d2.index(extract_min(d2))
         name = qNode2[index].name()
         u = find_node(qNode, name)
-        print("u----", u)
         qNode.remove(u)
         d2[index] = inf
         edge = u.edges()
+        i = 0
         while edge.dst() != None:
-            i = 0
-            while i < len(qNode):
-                if edge.dst() == qNode[i].name():
-                    n2 = find_dst(qNode[i].name(), qNode2)
-                    if edge.weight() < d[n2]:
-                        d[n2] = edge.weight()
-                        d2[n2] = edge.weight()
-                        e[n2] = u.name()
-                i = i + 1
+            n2 = find_dst(qNode[i].name(),qNode2)
+            n3 = e2.index(u.name())
+            if edge.weight() + d[n3] < d[n2]:
+                d[n2] = edge.weight() + d[n3]
+                d2[n2] = edge.weight() + d[n3]
+                e[n2] = u.name()
+            i = i + 1
             edge = edge.tail()
+        k = k + 1
     for i in range(0, len(d)):
         if qNode2[i].name() == start_node:
             d[i] = None
@@ -95,14 +97,16 @@ def find_node(arr, nodeName):
 def init(node, start_node):
     d = []
     e = []
+    e2 = []
     while node.name() != None:
         if node.name() == start_node:
             d.append(0)
         else:
             d.append(inf)
         e.append(None)
+        e2.append(node.name())
         node = node.tail()
-    return d, e
+    return d, e, e2
 
 def insert(node):
     qNode = []
