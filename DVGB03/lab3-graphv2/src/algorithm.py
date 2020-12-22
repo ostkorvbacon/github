@@ -53,10 +53,63 @@ def dijkstra(adjlist, start_node):
     d: [ None, 1, 2]
     e: [ None, 'a', 'a' ]
     '''
-    log.info("TODO: dijkstra()")
     d = []
     e = []
+    qNode = []
+    node = adjlist
+    d, e = init(node, start_node)
+    d2 = copy.deepcopy(d)
+    qNode = insert(node)
+    qNode2 = copy.deepcopy(qNode)
+    while len(qNode) > 0:
+        index = d2.index(extract_min(d2))
+        name = qNode2[index].name()
+        u = find_node(qNode, name)
+        print("u----", u)
+        qNode.remove(u)
+        d2[index] = inf
+        edge = u.edges()
+        while edge.dst() != None:
+            i = 0
+            while i < len(qNode):
+                if edge.dst() == qNode[i].name():
+                    n2 = find_dst(qNode[i].name(), qNode2)
+                    if edge.weight() < d[n2]:
+                        d[n2] = edge.weight()
+                        d2[n2] = edge.weight()
+                        e[n2] = u.name()
+                i = i + 1
+            edge = edge.tail()
+    for i in range(0, len(d)):
+        if qNode2[i].name() == start_node:
+            d[i] = None
     return d, e
+
+def find_node(arr, nodeName):
+    for i in range(0, len(arr)):
+        if arr[i].name() == nodeName:
+            return arr[i].head()
+    return None
+    print("Error: Node not found")
+
+def init(node, start_node):
+    d = []
+    e = []
+    while node.name() != None:
+        if node.name() == start_node:
+            d.append(0)
+        else:
+            d.append(inf)
+        e.append(None)
+        node = node.tail()
+    return d, e
+
+def insert(node):
+    qNode = []
+    while node.name() != None:
+        qNode.append(node)
+        node = node.tail()
+    return qNode
 
 def prim(adjlist, start_node):
     '''
@@ -110,7 +163,7 @@ def prim(adjlist, start_node):
         i = i + 1
 
     while len(q) != 0:
-        n = l2.index(min_l(l2))
+        n = l2.index(extract_min(l2))
         u = q[n]
         v = u.edges()
         while v.dst() != None:
@@ -143,14 +196,12 @@ def find_dst(name,q2):
 
         i = i + 1
 
-def min_l(l):
-    i = 0
-    m = inf
-    while i < len(l):
-        if l[i] < m:
-            m = l[i]
-        i = i + 1
-    return m
+def extract_min(l):
+    min = inf
+    for i in range(0, len(l)):
+        if l[i] < min:
+            min = l[i]
+    return min
 
 if __name__ == "__main__":
     logging.critical("module contains no main")
