@@ -56,8 +56,10 @@ def dijkstra(adjlist, start_node):
     print("")
     d = []
     e = []
+    e2 = []
     qNode = []
     node = adjlist
+    size = node.node_cardinality()
     print("start Node", start_node)
     while node.name() != None:
         edge = node.edges()
@@ -68,14 +70,14 @@ def dijkstra(adjlist, start_node):
             edge = edge.tail()
         node = node.tail()
     node = adjlist
-    d, e, qNode, node, startIndex = init(node, start_node)
+    d, e, e2, qNode, node, startIndex = init(node, start_node)
     k = 0
     while qNode:
         u, qNode = min_cost(qNode)
         v = u.edges()
 
         costNode = u.info()
-        costEdges = find_cost(v)
+        costEdges = find_cost(v, e2)
         print("costEdges", costEdges)
         for i in range(0, len(costEdges)):
             print("i: ", i)
@@ -91,10 +93,11 @@ def dijkstra(adjlist, start_node):
     e.insert(startIndex, None)
     return d, e
 
-def find_cost(v):
-    costEdges = []
-    while v.dst() != None:
-        costEdges.append(v.weight())
+def find_cost(v, e2):
+    costEdges = e2
+    for i in range(0, len(e2)):
+        if v.dst() == e2[i]
+            costEdges[i] = v.weight()
         v = v.tail()
 
     return costEdges
@@ -126,11 +129,11 @@ def init(node, start_node):
             d.append(inf)
             node.set_info(inf)
             e.append(None)
-
+        e2.append(node.name())
         qNode.append(node)
         node = node.tail()
         i = i + 1
-    return d, e, qNode, head, startIndex
+    return d, e, e2, qNode, head, startIndex
 
 
 def prim(adjlist, start_node):
