@@ -28,36 +28,9 @@ def floyd(adjlist):
     return [[]]
 
 def dijkstra(adjlist, start_node):
-    '''
-    Returns the result of running Dijkstra's algorithm as two N-length lists:
-    1) distance d: here, d[i] contains the minimal cost to go from the node
-    named `start_node` to the i:th node in the adjacency list.
-    2) edges e: here, e[i] contains the node name that the i:th node's shortest
-    path originated from.
-
-    If the index i refers to the start node, set the associated values to None.
-
-    Pre: start_node is a member of adjlist.
-
-    === Example ===
-    Suppose that we have the following adjacency matrix:
-
-      a b c
-    -+-----
-    a|* 1 2
-    b|* * 2
-    c|* * *
-
-    For start node "a", the expected output would then be:
-
-    d: [ None, 1, 2]
-    e: [ None, 'a', 'a' ]
-    '''
-
     d = []
     e = []
     qNode = []
-    node = adjlist
     node = adjlist
     d, e, e2, qNode, node, startIndex = init(node, start_node)
     while qNode:
@@ -81,7 +54,6 @@ def setInfo(qNode, dst, weight):
         if qNode[i].name() == dst:
             qNode[i].set_info(weight)
             return qNode
-    print("error")
     return qNode
 
 def find_cost(v, e2):
