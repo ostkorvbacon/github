@@ -53,88 +53,85 @@ def dijkstra(adjlist, start_node):
     d: [ None, 1, 2]
     e: [ None, 'a', 'a' ]
     '''
-    d = []
-    d2 = []
-    e = []
-    e2 = [] # Used to help reffer to indexes for all the names
-    qNode = []
-    qNode2 = []
-    node = adjlist
-    d, e, e2= init(node, start_node)
-    d2 = copy.deepcopy(d)
-    qNode = insert(node)
-    qNode2 = copy.deepcopy(qNode)
-    k = 0
-    n3 = d.index(0)
-    while len(qNode) > 0:
-        index = d2.index(extract_min(d2))
-        name = qNode2[index].name()
-        u = find_node(qNode, name)
-        '''
-        print("")
-        print("index , 1",index)
-        print("qNode, 1", qNode)
-        print("qNode2, 1", qNode2)
-        print("u, 1", u)
-        '''
-        qNode.remove(u)
-        '''
-        print("")
-        print("index ",index)
-        print("qNode", qNode)
-        print("qNode2", qNode2)
-        print("u", u)
-        '''
-        d2[index] = inf
-        edge = u.edges()
-        i = 0
-        while edge.dst() != None:
-            n2 = find_dst(qNode[i].name(), qNode2)
-            print("")
-            print("i: ", i)
-            print("n2: ", n2)
-            print("qNode lenght: ", len(qNode) )
-            n3 = e2.index(u.name())
-            if edge.weight() + d[n3] < d[n2]:
-                d[n2] = edge.weight() + d[n3]
-                d2[n2] = edge.weight() + d[n3]
-                e[n2] = u.name()
-            i = i + 1
-            edge = edge.tail()
-        k = k + 1
-    for i in range(0, len(d)):
-        if qNode2[i].name() == start_node:
-            d[i] = None
 
+    d = []
+    e = []
+    qNode = []
+    node = adjlist
+    node = adjlist
+    d, e, e2, qNode, node, startIndex = init(node, start_node)
+    while qNode:
+        u, qNode = min_cost(qNode)
+        v = u.edges()
+        costNode = u.info()
+        costEdges = find_cost(v, e2)
+        for i in range(0, len(costEdges)):
+            if costEdges[i] != inf:
+                n2 = e2.index(v.dst())
+                if costNode + costEdges[i] < d[n2]:
+                    d[n2] = costNode + costEdges[i]
+                    qNode = setInfo(qNode, v.dst(), costNode + costEdges[i])
+                    e[n2] = u.name()
+                v = v.tail()
+    d[startIndex] = None
     return d, e
 
-def find_node(arr, nodeName):
-    for i in range(0, len(arr)):
-        if arr[i].name() == nodeName:
-            return arr[i].head()
+def setInfo(qNode, dst, weight):
+    for i in range(0, len(qNode)):
+        if qNode[i].name() == dst:
+            qNode[i].set_info(weight)
+            return qNode
+    print("error")
+    return qNode
 
-    print("Error: Node not found")
-    return arr[0].head()
+def find_cost(v, e2):
+    size = len(e2)
+    e2.insert(0, inf)
+    costEdges = []
+    for i in range(0, size):
+        if v.dst() == e2[i+1]:
+            costEdges.insert(i, v.weight())
+            v = v.tail()
+        else:
+            costEdges.insert(i, inf)
+    e2.pop(0)
+    return costEdges
+
+def min_cost(qNode):
+    min = inf
+    k = 0
+    u = qNode[0]
+    for i in range(0, len(qNode)):
+        if qNode[i].info() < min:
+            min = qNode[i].info()
+            u = qNode[i]
+            k = i
+    qNode.pop(k)
+    return u, qNode
+
 def init(node, start_node):
     d = []
     e = []
     e2 = []
+    qNode = []
+    head = node
+    i = 0
     while node.name() != None:
         if node.name() == start_node:
+            node.set_info(0)
+            startIndex = i
             d.append(0)
+            e.append(None)
         else:
             d.append(inf)
-        e.append(None)
+            node.set_info(inf)
+            e.append(None)
         e2.append(node.name())
-        node = node.tail()
-    return d, e, e2
-
-def insert(node):
-    qNode = []
-    while node.name() != None:
         qNode.append(node)
         node = node.tail()
-    return qNode
+        i = i + 1
+    return d, e, e2, qNode, head, startIndex
+
 
 def prim(adjlist, start_node):
     '''
