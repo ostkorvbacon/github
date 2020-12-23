@@ -54,9 +54,11 @@ def dijkstra(adjlist, start_node):
     e: [ None, 'a', 'a' ]
     '''
     d = []
+    d2 = []
     e = []
-    e2 = []
+    e2 = [] # Used to help reffer to indexes for all the names
     qNode = []
+    qNode2 = []
     node = adjlist
     d, e, e2= init(node, start_node)
     d2 = copy.deepcopy(d)
@@ -68,12 +70,30 @@ def dijkstra(adjlist, start_node):
         index = d2.index(extract_min(d2))
         name = qNode2[index].name()
         u = find_node(qNode, name)
+        '''
+        print("")
+        print("index , 1",index)
+        print("qNode, 1", qNode)
+        print("qNode2, 1", qNode2)
+        print("u, 1", u)
+        '''
         qNode.remove(u)
+        '''
+        print("")
+        print("index ",index)
+        print("qNode", qNode)
+        print("qNode2", qNode2)
+        print("u", u)
+        '''
         d2[index] = inf
         edge = u.edges()
         i = 0
         while edge.dst() != None:
-            n2 = find_dst(qNode[i].name(),qNode2)
+            n2 = find_dst(qNode[i].name(), qNode2)
+            print("")
+            print("i: ", i)
+            print("n2: ", n2)
+            print("qNode lenght: ", len(qNode) )
             n3 = e2.index(u.name())
             if edge.weight() + d[n3] < d[n2]:
                 d[n2] = edge.weight() + d[n3]
@@ -85,15 +105,16 @@ def dijkstra(adjlist, start_node):
     for i in range(0, len(d)):
         if qNode2[i].name() == start_node:
             d[i] = None
+
     return d, e
 
 def find_node(arr, nodeName):
     for i in range(0, len(arr)):
         if arr[i].name() == nodeName:
             return arr[i].head()
-    return None
-    print("Error: Node not found")
 
+    print("Error: Node not found")
+    return arr[0].head()
 def init(node, start_node):
     d = []
     e = []
