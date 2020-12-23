@@ -53,50 +53,48 @@ def dijkstra(adjlist, start_node):
     d: [ None, 1, 2]
     e: [ None, 'a', 'a' ]
     '''
-    print("")
+
     d = []
     e = []
     qNode = []
     node = adjlist
-    print("start Node", start_node)
-    while node.name() != None:
-        edge = node.edges()
-        print("")
-        print("Node ", node.name(), end = "-> ")
-        while edge.dst() != None:
-            print(edge.dst(), edge.weight(), end = " ")
-            edge = edge.tail()
-        node = node.tail()
     node = adjlist
-    d, e, qNode, node, startIndex = init(node, start_node)
-    k = 0
+    d, e, e2, qNode, node, startIndex = init(node, start_node)
     while qNode:
         u, qNode = min_cost(qNode)
         v = u.edges()
-
         costNode = u.info()
-        costEdges = find_cost(v)
-        print("costEdges", costEdges)
+        costEdges = find_cost(v, e2)
         for i in range(0, len(costEdges)):
-            print("i: ", i)
-            print("i + k: ", i+k)
-            print("if costNode + costEdges[i] < d[i]" , costNode,"+", costEdges[i],"<", d[i])
-            print("d: ", d)
-            if costNode + costEdges[i] < d[i+k]:
-                d[i + k] = costNode + costEdges[i]
-                qNode[i].set_info(costNode + costEdges[i])
-                e[i + k] = u.name()
-        k = k + 1
-    d.insert(startIndex, None)
-    e.insert(startIndex, None)
+            if costEdges[i] != inf:
+                n2 = e2.index(v.dst())
+                if costNode + costEdges[i] < d[n2]:
+                    d[n2] = costNode + costEdges[i]
+                    qNode = setInfo(qNode, v.dst(), costNode + costEdges[i])
+                    e[n2] = u.name()
+                v = v.tail()
+    d[startIndex] = None
     return d, e
 
-def find_cost(v):
-    costEdges = []
-    while v.dst() != None:
-        costEdges.append(v.weight())
-        v = v.tail()
+def setInfo(qNode, dst, weight):
+    for i in range(0, len(qNode)):
+        if qNode[i].name() == dst:
+            qNode[i].set_info(weight)
+            return qNode
+    print("error")
+    return qNode
 
+def find_cost(v, e2):
+    size = len(e2)
+    e2.insert(0, inf)
+    costEdges = []
+    for i in range(0, size):
+        if v.dst() == e2[i+1]:
+            costEdges.insert(i, v.weight())
+            v = v.tail()
+        else:
+            costEdges.insert(i, inf)
+    e2.pop(0)
     return costEdges
 
 def min_cost(qNode):
@@ -122,15 +120,17 @@ def init(node, start_node):
         if node.name() == start_node:
             node.set_info(0)
             startIndex = i
+            d.append(0)
+            e.append(None)
         else:
             d.append(inf)
             node.set_info(inf)
             e.append(None)
-
+        e2.append(node.name())
         qNode.append(node)
         node = node.tail()
         i = i + 1
-    return d, e, qNode, head, startIndex
+    return d, e, e2, qNode, head, startIndex
 
 
 def prim(adjlist, start_node):
