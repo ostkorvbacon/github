@@ -306,34 +306,20 @@ class AdjacencyList:
         '''
         Returns True if there's an edge from node `src` to node `dst`.
         '''
-        if self.find_node(src) == True:
-            node = self.return_n(src)
-            if node.edges().dst() == dst:
-                return True
-            edge = node.edges()
-            while edge.dst() != None:
-
-                if edge.dst() == dst:
-                    return True
-                edge = edge.tail()
-
-
+        srcEdge = Edge()
+        node = self
+        while node.name() != None:
+            if node.name() == src:
+                srcEdge = node.edges()
+                return Edge.find(srcEdge, dst)
+            node = node.tail()
         return False
 
     def edge_cardinality(self):
         '''
         Returns the number of edges.
         '''
-        n = 0
-        node = self
-        while node.name() != None:
-            ed = node.edges()
-            while ed.dst() != None:
-                n = n + 1
-                ed = ed.tail()
-            node = node.tail()
-
-        return n
+        return Edge.cardinality(self)
 
     def self_loops(self):
         '''
@@ -525,15 +511,29 @@ class Edge:
         '''
         Returns True if there is an edge towards `dst` in this sequence.
         '''
-        log.info("TODO: edge find()")
+        edge = self
+        while edge.dst() != None:
+            if edge.dst() == dst:
+                return True
+            edge = edge.tail()
+
+
         return False
 
     def cardinality(self):
         '''
         Returns the number of edges in this sequence.
         '''
-        log.info("TODO: edge cardinality()")
-        return 0
+        n = 0
+        node = self
+        while node.name() != None:
+            ed = node.edges()
+            while ed.dst() != None:
+                n = n + 1
+                ed = ed.tail()
+            node = node.tail()
+
+        return n
 
     def list(self, src):
         '''

@@ -5,12 +5,8 @@ b
 a
 c
 b
-a
-b
-2
-b
 b
 c
-1
-D
-a
+2
+f
+b
