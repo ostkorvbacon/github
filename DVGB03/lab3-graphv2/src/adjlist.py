@@ -31,9 +31,6 @@ class AdjacencyList:
             self._tail = AdjacencyList() # empty tail
             self._edges = Edge() # empty list of edges
 
-
-
-
     def is_empty(self):
         '''
         Returns true if this adjacency list is empty.
@@ -82,7 +79,6 @@ class AdjacencyList:
     def set_name(self, name):
         '''
         Sets the node name to `name`.
-
         Returns an adjacency list head.
         '''
         self._name = name
@@ -91,7 +87,6 @@ class AdjacencyList:
     def set_info(self, info):
         '''
         Sets the auxilirary info of this node to `info`.
-
         Returns an adjacency list head.
         '''
         self._info = info
@@ -100,7 +95,6 @@ class AdjacencyList:
     def set_edges(self, edges):
         '''
         Sets the edge head of this node to `edges`.
-
         Returns an adjacency list head.
         '''
         self._edges = edges
@@ -112,7 +106,6 @@ class AdjacencyList:
         '''
         Adds a new node named `name` in lexicographical order.  If node `name`
         is a member, its info-field is updated based on `info`.
-
         Returns an adjacency list head.
         '''
         temp = self
@@ -202,7 +195,6 @@ class AdjacencyList:
         Adds or updates an edge from node `src` to node `dst` with a given
         weight `weight`.  If either of the two nodes are non-members, the same
         adjacency list is returned without any modification.
-
         Returns an adjacency list head.
         '''
         if not self.find_node(dst):
@@ -213,9 +205,7 @@ class AdjacencyList:
         '''
         Adds a new (or updates an existing) edge from node `src` to node `dst`,
         setting the weight to `weight`.
-
         Returns an adjacency list head.
-
         Pre: `dst` is a member of this adjacency list.
         '''
         if self.find_node(src) == False:
@@ -255,7 +245,6 @@ class AdjacencyList:
     def delete_edge(self, src, dst):
         '''
         Deletes an edge from node `src` to node `dst` if it exists.
-
         Returns an adjacency list head.
         '''
         if self.find_edge(src,dst) == False:
@@ -274,7 +263,6 @@ class AdjacencyList:
     def delete_edges(self, name):
         '''
         Deletes all edges towards the node named `name`.
-
         Returns an adjacency list head.
         '''
         arr = self.list_nodes()
@@ -339,7 +327,6 @@ class AdjacencyList:
         '''
         Returns this adjacency list as an adjacency matrix.  For example,
         consider the following adjacency list where all edges have weight=1.
-
         a: a->b->c
         |
         v
@@ -347,22 +334,16 @@ class AdjacencyList:
         |
         v
         c: c
-
         Then we would expect the following 3x3 adjacency matrix:
-
           a b c
         -+-----
         a|1 1 1
         b|1 1 *
         c|* * 1
-
         Where the corresponding python-matrix is:
-
         [ [1,1,1], [1,1,inf], [inf,inf,1] ]
-
         Note that inf indicates that there is no path between two nodes.  Also,
         all rows and columns are lexicographically ordered based on node names.
-
         Hint: depending on your solution, you may need to add a helper method
         that maps a node's name to it's numeric position in the adjacency list.
         '''
@@ -470,7 +451,6 @@ class Edge:
     def set_dst(self, dst):
         '''
         Sets the destination of this edge to `dst`.
-
         Returns an edge head.
         '''
         self._dst = dst
@@ -479,7 +459,6 @@ class Edge:
     def set_weight(self, weight):
         '''
         Sets the weight of this edge to `weight`.
-
         Returns an edge head.
         '''
         self._weight = weight
@@ -492,20 +471,55 @@ class Edge:
         '''
         Adds a new edge towards `dst` in lexicographical order.  If such an
         edge exists already, the associated weight-field is updated instead.
-
         Returns an edge head.
         '''
-        log.info("TODO: add()")
-        return self.head()
+        node=self
+        while True:
+            if node.dst()==None:
+                node.set_dst(dst)
+                node.set_weight(weight)
+                node.cons(Edge())
+                return node.head()
+
+            if node.dst()==dst:
+                node.set_weight(weight)
+                return node.head()
+
+            if dst<node.dst():
+                node.cons(copy.deepcopy(node))
+                node.set_dst(dst)
+                node.set_weight(weight)
+                return node.head()
+
+            node=node.tail()
+
+
 
     def delete(self, dst):
         '''
         Deletes the edge that goes towards `dst` if it exists.
-
         Returns an edge head.
         '''
-        log.info("TODO: delete()")
-        return self.head()
+        if self.find()==False:
+            return self.head()
+        node=self
+        while node.dst()!=None:
+            if node.dst()==dst:
+                if node.tail().dst()!=None:
+                    temp=node.tail()
+                    node.cons(node.tail().tail())
+                    node.set_dst(temp.dst())
+                    node.set_weight(temp.weight())
+                    return self.head()
+                else:
+                    node.cons(Edge())
+                    node.set_dst(None)
+                    node.set_weight(None)
+                    return self.head()
+
+            node=node.tail()
+
+
 
     def find(self, dst):
         '''

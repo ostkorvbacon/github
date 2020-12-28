@@ -12,20 +12,72 @@ def warshall(adjlist):
     '''
     Returns an NxN matrix that contains the result of running Warshall's
     algorithm.
-
     Pre: adjlist is not empty.
     '''
-    log.info("TODO: warshall()")
-    return [[]]
+    n=adjlist.node_cardinality()
+    alist=adjlist.adjacency_matrix()
+    result = [[False for x in range(n)] for y in range(n)]
+    i=0
+    j=0
+    while i<n:
+        j=0
+        while j<n:
+            if alist[i][j]!=float('inf'):
+                result[i][j]=True
+            if i==j:
+                result[i][j]=True
+            j=j+1
+        i=i+1
+    i=0
+    j=0
+    k=0
+    while k<n:
+        i=0
+        while i<n:
+            j=0
+            while j<n:
+                if  result[i][k]==True and result[k][j]==True:
+                    result[i][j] = True
+                j=j+1
+            i=i+1
+        k=k+1
+    return result
 
 def floyd(adjlist):
     '''
     Returns an NxN matrix that contains the result of running Floyd's algorithm.
-
     Pre: adjlist is not empty.
     '''
-    log.info("TODO: floyd()")
-    return [[]]
+    inf=float('inf')
+    n=adjlist.node_cardinality()
+    alist=adjlist.adjacency_matrix()
+    result = [[inf for x in range(n)] for y in range(n)]
+    i=0
+    j=0
+    while i<n:
+        j=0
+        while j<n:
+            if i==j:
+                result[i][j]=0
+            else:
+                result[i][j]=alist[i][j]
+            j=j+1
+        i=i+1
+    i=0
+    j=0
+    k=0
+    while k<n:
+        i=0
+        while i<n:
+            j=0
+            while j<n:
+                if result[i][j] > result[i][k] + result[k][j]:
+                    result[i][j] = result[i][k] + result[k][j]
+                j=j+1
+            i=i+1
+
+        k=k+1
+    return result
 
 def dijkstra(adjlist, start_node):
     d = []
@@ -104,7 +156,6 @@ def init(node, start_node):
         i = i + 1
     return d, e, e2, qNode, head, startIndex
 
-
 def prim(adjlist, start_node):
     '''
     Returns the result of running Prim's algorithm as two N-length lists:
@@ -112,22 +163,16 @@ def prim(adjlist, start_node):
     the i:th node to the minimal spanning tree that started at `start_node`.
     2) closest c: here, c[i] contains the node name that the i:th node's
     cheapest edge orignated from.
-
     If the index i refers to the start node, set the associated values to None.
-
     Pre: adjlist is setup as an undirected graph and start_node is a member.
-
     === Example ===
     Suppose that we have the following adjacency matrix:
-
       a b c
     -+-----
     a|* 1 3
     b|1 * 1
     c|3 1 *
-
     For start node "a", the expected output would then be:
-
     l: [ None, 1, 1]
     c: [ None, 'a', 'b' ]
     '''
@@ -145,7 +190,6 @@ def prim(adjlist, start_node):
         c.append(None)
         q.append(node)
         node = node.tail()
-
     q2 = copy.deepcopy(q)
     l2 = copy.deepcopy(l)
     i = 0
@@ -155,7 +199,6 @@ def prim(adjlist, start_node):
             l[i] = 0
             l2[i] = 0
         i = i + 1
-
     while len(q) != 0:
         n = l2.index(extract_min(l2))
         u = q[n]
