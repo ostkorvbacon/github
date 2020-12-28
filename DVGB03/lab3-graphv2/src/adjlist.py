@@ -176,8 +176,10 @@ class AdjacencyList:
         '''
         if self.is_empty():
             return False
+
         if name == self.head().name():
             return True
+
         return self.tail().find_node(name)
 
     def node_cardinality(self):
@@ -186,6 +188,7 @@ class AdjacencyList:
         '''
         if self.name() == None:
             return 0
+
         return 1+self.tail().node_cardinality()
     ###
     # Edge operations
@@ -199,6 +202,7 @@ class AdjacencyList:
         '''
         if not self.find_node(dst):
             return self.head()
+
         return self._add_edge(src, dst, weight)
 
     def _add_edge(self, src, dst, weight):
@@ -219,7 +223,6 @@ class AdjacencyList:
         snode = self.return_n(src)
         ed = Edge(dst,weight)
         ed2 = snode.edges()
-
         if snode.edges().dst() == None:
             snode.set_edges(ed)
             return self.head()
@@ -249,6 +252,7 @@ class AdjacencyList:
         '''
         if self.find_edge(src,dst) == False:
             return self.head()
+
         ed = self.return_edge(src,dst)
         ed2 = ed.tail()
         ed.set_dst(ed2.dst())
@@ -257,7 +261,6 @@ class AdjacencyList:
             ed.cons(Edge())
         else:
             ed.cons(ed2.tail())
-
         return self.head()
 
     def delete_edges(self, name):
@@ -270,7 +273,6 @@ class AdjacencyList:
         while i < len(arr):
             self.delete_edge(arr[i],name)
             i = i+1
-
         return self.head()
 
     def return_edge(self, src, dst):
@@ -281,13 +283,13 @@ class AdjacencyList:
             node = self.return_n(src)
             if node.edges().dst() == dst:
                 return node.edges()
+
             edge = node.edges()
             while edge.dst() != None:
-
                 if edge.dst() == dst:
                     return edge
-                edge = edge.tail()
 
+                edge = edge.tail()
         return False
 
     def find_edge(self, src, dst):
@@ -359,12 +361,10 @@ class AdjacencyList:
             ed = node.edges()
             nsrc = self.position(node.name())
             while ed.dst() != None:
-
                 ndst = self.position(ed.dst())
                 matrix[nsrc][ndst] = ed.weight()
                 ed = ed.tail()
             node = node.tail()
-
         return matrix
 
     def position(self,name):
@@ -493,8 +493,6 @@ class Edge:
 
             node=node.tail()
 
-
-
     def delete(self, dst):
         '''
         Deletes the edge that goes towards `dst` if it exists.
@@ -511,6 +509,7 @@ class Edge:
                     node.set_dst(temp.dst())
                     node.set_weight(temp.weight())
                     return self.head()
+
                 else:
                     node.cons(Edge())
                     node.set_dst(None)
@@ -518,8 +517,6 @@ class Edge:
                     return self.head()
 
             node=node.tail()
-
-
 
     def find(self, dst):
         '''
@@ -530,8 +527,6 @@ class Edge:
             if edge.dst() == dst:
                 return True
             edge = edge.tail()
-
-
         return False
 
     def cardinality(self):
@@ -546,7 +541,6 @@ class Edge:
                 n = n + 1
                 ed = ed.tail()
             node = node.tail()
-
         return n
 
     def list(self, src):
