@@ -17,30 +17,17 @@ def warshall(adjlist):
     n=adjlist.node_cardinality()
     alist=adjlist.adjacency_matrix()
     result = [[False for x in range(n)] for y in range(n)]
-    i=0
-    j=0
-    while i<n:
-        j=0
-        while j<n:
+    for i in range(0, n):
+        for j in range(0, n):
             if alist[i][j]!=float('inf'):
                 result[i][j]=True
             if i==j:
                 result[i][j]=True
-            j=j+1
-        i=i+1
-    i=0
-    j=0
-    k=0
-    while k<n:
-        i=0
-        while i<n:
-            j=0
-            while j<n:
+    for k in range(0, n):
+        for i in range(0, n):
+            for j in range(0, n):
                 if  result[i][k]==True and result[k][j]==True:
                     result[i][j] = True
-                j=j+1
-            i=i+1
-        k=k+1
     return result
 
 def floyd(adjlist):
@@ -52,31 +39,17 @@ def floyd(adjlist):
     n=adjlist.node_cardinality()
     alist=adjlist.adjacency_matrix()
     result = [[inf for x in range(n)] for y in range(n)]
-    i=0
-    j=0
-    while i<n:
-        j=0
-        while j<n:
+    for i in range(0, n):
+        for j in range(0, n):
             if i==j:
                 result[i][j]=0
             else:
                 result[i][j]=alist[i][j]
-            j=j+1
-        i=i+1
-    i=0
-    j=0
-    k=0
-    while k<n:
-        i=0
-        while i<n:
-            j=0
-            while j<n:
+    for k in range(0, n):
+        for i in range(0, n):
+            for j in range(0, n):
                 if result[i][j] > result[i][k] + result[k][j]:
                     result[i][j] = result[i][k] + result[k][j]
-                j=j+1
-            i=i+1
-
-        k=k+1
     return result
 
 def dijkstra(adjlist, start_node):
@@ -192,20 +165,17 @@ def prim(adjlist, start_node):
         node = node.tail()
     q2 = copy.deepcopy(q)
     l2 = copy.deepcopy(l)
-    i = 0
-    while i < len(q):
+    for i in range(0, len(q)):
         if q[i].name() == start_node:
             si = i
             l[i] = 0
             l2[i] = 0
-        i = i + 1
     while len(q) != 0:
         n = l2.index(extract_min(l2))
         u = q[n]
         v = u.edges()
         while v.dst() != None:
-            i = 0
-            while i < len(q):
+            for i in range(0, len(q)):
                 if v.dst() == q[i].name():
                     n2 = find_dst(q[i].name(),q2)
                     if v.weight() < l[n2]:
@@ -213,25 +183,19 @@ def prim(adjlist, start_node):
                         n3 = find_dst(q[i].name(),q)
                         l2[n3] = v.weight()
                         c[n2] = u.name()
-                i = i + 1
             v = v.tail()
         q.remove(u)
         l2.remove(l2[n])
-    i = 0
-    while i < len(l):
+    for i in range(0, len(l)):
         if l[i] == inf:
             l[i] = float('inf')
-        i = i + 1
     l[si] = None
     return l,c
 
 def find_dst(name,q2):
-    i = 0
-    while i < len(q2):
+    for i in range(0, len(q2)):
         if name == q2[i].name():
             return i
-
-        i = i + 1
 
 def extract_min(l):
     min = inf
