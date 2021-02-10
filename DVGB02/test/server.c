@@ -14,10 +14,9 @@
 int main(int argc, char *arhv[])
 {
     int s, b, l, fd, sa, bytes, on = 1;
-    int sizechannel;
     char buf[BUF_SIZE];
     struct sockaddr_in channel;
-    printf("hajd");
+    int sizechannel = sizeof(channel);
     // Adress structure
     memset(&channel, 0, sizeof(channel));
     channel.sin_family = AF_INET;
@@ -34,13 +33,16 @@ int main(int argc, char *arhv[])
     l = listen(s, QUEUE_SIZE);
     if(l == -1) printf("error listen");
 
-    printf("geh");
     //socket set up and bound, wait for conectiopn.
-      sizechannel = sizeof(channel);
+    while(1)
+    {
       sa = accept(s, (struct sockaddr *)&channel, (socklen_t*)&sizechannel);
       if(sa == -1) printf("error accept");
 
       read(sa, buf, BUF_SIZE);
-      printf("message %s", buf);
+      printf("Message from user %s\n", buf);
+      write(sa, buf, BUF_SIZE);
+      printf("Message sent back to user\n");
       close(sa);
+    }
 }

@@ -15,11 +15,8 @@
 
 int main(int argc, char *arhv[])
 {
-    printf("he");
     int s, b, l, c, fd, sa, bytes, on = 1;
-    char buf[BUF_SIZE];
-    char *msg = "hello";
-    printf("hejhej");
+    char buf[BUF_SIZE] = "Hello from the other side\0";
 
     struct sockaddr_in channel;
     // Adress structure
@@ -31,11 +28,14 @@ int main(int argc, char *arhv[])
     inet_pton(AF_INET, "192.168.85.130", &channel.sin_addr);
 
     s = socket(AF_INET, SOCK_STREAM, IPPROTO_TCP);
-    printf("hejhej");
 
     c = connect(s, (struct sockaddr*)&channel, sizeof(channel));
-    if(c == 0) printf("connection succesfull");
-    else printf("error");
-    write(s, msg, sizeof(msg));
+    if(c == -1) printf("error connection");
+    write(s, buf, BUF_SIZE);
+    printf("--Message sent to server--\n");
+    read(s, buf, BUF_SIZE);
+    printf("Message from server: %s\n", buf);
+    close(c);
+
     return 0;
 }
