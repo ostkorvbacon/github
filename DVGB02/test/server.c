@@ -19,12 +19,12 @@ int main(int argc, char *arhv[])
     char buf[BUF_SIZE];
     struct sockaddr_in serveraddr;
     int addrlngt = sizeof(serveraddr);
-    // Adress structure
+    // Determining Adress structure
     memset(&serveraddr, 0, sizeof(serveraddr));
     serveraddr.sin_family = AF_INET;
     serveraddr.sin_addr.s_addr = htonl(INADDR_ANY);
     serveraddr.sin_port = htons(SERVER_PORT);
-    //Passive open
+    //Setting socket to passive open
     s = socket(AF_INET, SOCK_STREAM, IPPROTO_TCP);
     if(s == -1) printf("Error socket");
 
@@ -35,7 +35,7 @@ int main(int argc, char *arhv[])
     l = listen(s, QUEUE_SIZE);
     if(l == -1) printf("Error listen");
 
-    //socket set up and bound, wait for conectiopn.
+    //socket is set up and bound, wait for conectiopn.
     while(1)
     {
       sa = accept(s, (struct sockaddr *)&serveraddr, (socklen_t*)&addrlngt);
@@ -46,6 +46,7 @@ int main(int argc, char *arhv[])
     }
 }
 
+// parse http and send response.
 int web(int sa, char *buf)
 {
   read(sa, buf, BUF_SIZE);
