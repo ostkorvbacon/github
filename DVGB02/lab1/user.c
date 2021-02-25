@@ -21,5 +21,4 @@ int main(int argc, char *arhv[])
     channel.sin_addr.s_addr = htonl(INADDR_ANY);
     inet_pton(AF_INET, 192.168.85.130, &serveraddr.sin.addr);
     channel.sin_port = htons(SERVER_PORT);
-
 }
