@@ -10,12 +10,18 @@
 
 int main(int argc, char const *argv[])
 {
-    int server_fd, new_socket; long valread;
+    int i, server_fd, new_socket; long valread;
     struct sockaddr_in address;
     int addrlen = sizeof(address);
 
     char *hello = "200 OK";
     char *hello2 = "404 NOT FOUND";
+    char *httpresp =
+    "HTTP/1.1 200 OK\r\n"
+    "Content-Type: image/jpg\r\n"
+    "Content-Length: 12229\r\n\r\n";
+    char *picbuff;
+    picbuff = (char *) malloc(12229);
     // Creating socket file descriptor
     if ((server_fd = socket(AF_INET, SOCK_STREAM, 0)) == 0)
     {
@@ -43,6 +49,7 @@ int main(int argc, char const *argv[])
     }
     while(1)
     {
+        i = 0;
         printf("\n Awaiting connection\n");
         if ((new_socket = accept(server_fd, (struct sockaddr *)&address, (socklen_t*)&addrlen))<0)
         {
@@ -64,10 +71,10 @@ int main(int argc, char const *argv[])
         else if (strcmp(temp2,"a.jpg")==0){
 
           FILE *ft=fopen("a.jpg","rb");
-          FILE *s=fdopen(new_socket,"wb");
-
+          //FILE *s=fdopen(new_socket,"wb");
           int ch;
 
+<<<<<<< HEAD
           while(1)
           {
               ch=fgetc(ft);
@@ -75,6 +82,12 @@ int main(int argc, char const *argv[])
               if(ch==EOF) break;
               fputc(ch,s);
           }
+=======
+
+          fread (picbuff, sizeof(char), 12229+1, ft);
+          write(new_socket ,httpresp, strlen(httpresp));
+          write(new_socket, picbuff, strlen(picbuff));
+>>>>>>> be3a918c8054342ec3f893a990348ccece85fcce
         }
         else{
           write(new_socket ,hello2, strlen(hello2));
@@ -84,5 +97,7 @@ int main(int argc, char const *argv[])
 
         close(new_socket);
     }
+    free(picbuff);
+    free(httpresp);
     return 0;
 }
