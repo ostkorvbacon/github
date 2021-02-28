@@ -49,7 +49,6 @@ int main(int argc, char const *argv[])
             printf("Accept failed\n");
             exit(1);
         }
-
         char buffer[30000] = {0};
         valread = read( new_socket , buffer, 30000);
         printf("%s\n",buffer );
@@ -61,7 +60,6 @@ int main(int argc, char const *argv[])
         if (strcmp(temp2,"index.html")==0){
           write(new_socket , hello , strlen(hello));
           printf("Message sent\n");
-
         }
         else if (strcmp(temp2,"a.jpg")==0){
 
@@ -76,16 +74,12 @@ int main(int argc, char const *argv[])
 
               if(ch==EOF) break;
               fputc(ch,s);
-
           }
-
         }
         else{
           write(new_socket ,hello2, strlen(hello2));
 
           printf("404 Not Found\n");
-
-
         }
 
         close(new_socket);
