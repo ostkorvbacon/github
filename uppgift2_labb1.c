@@ -32,22 +32,17 @@ int main(int argc, char const *argv[])
     "Content-Type: text/html\r\n"
     "Content-Length: 66 \r\n\r\n";
 
-
-
     // Creating socket file descriptor
     if ((server_fd = socket(AF_INET, SOCK_STREAM, 0)) == 0)
     {
       printf("Socket failed\n" );
       exit(1);
     }
-
-
+    // Setting upp socket.
     address.sin_family = AF_INET;
     address.sin_addr.s_addr = INADDR_ANY;
     address.sin_port = htons( PORT );
-
     memset(address.sin_zero, '\0', sizeof address.sin_zero);
-
 
     if (bind(server_fd, (struct sockaddr *)&address, sizeof(address))<0)
     {
@@ -62,13 +57,13 @@ int main(int argc, char const *argv[])
     while(1)
     {
         i = 0;
+        // socket ready and waiting for connection
         printf("\n Awaiting connection\n");
         if ((new_socket = accept(server_fd, (struct sockaddr *)&address, (socklen_t*)&addrlen))<0)
         {
             printf("Accept failed\n");
             exit(1);
         }
-
         char buffer[30000] = {0};
         valread = read( new_socket , buffer, 30000);
         printf("%s\n",buffer );
@@ -77,19 +72,18 @@ int main(int argc, char const *argv[])
         memset(temp2,'\0',SIZE);
         sscanf(buffer,"%s /%s ",temp1,temp2);
         printf("temp2= %s\n",temp2);
-
-
-        if (strcmp(temp2,"index.html")==0){
+        // Website would go here.
+        if (strcmp(temp2,"index.html")==0)
+        {
           write(new_socket ,hello, strlen(hello2));
           write(new_socket ,"<html><body><p>A webpage</p></body></html>", 39);
-
         }
-        else if (strcmp(temp2,"a.jpg")==0){
-
-          if ( ((fd = open ("a.jpg", O_RDONLY)) < -1) || (fstat(fd, &filestat) < 0) ) {
-              printf ("Error in measuring the size of the file");
-      }
-
+        else if(strcmp(temp2,"a.jpg")==0)
+        {
+          if(((fd = open ("a.jpg", O_RDONLY)) < -1) || (fstat(fd, &filestat) < 0) )
+          {
+            printf ("Error in measuring the size of the file");
+          }
 
           sprintf (filesize, "%zd", filestat.st_size);
           fp = fopen ("a.jpg", "rb");
@@ -106,17 +100,13 @@ int main(int argc, char const *argv[])
           write (new_socket, file_buff, filestat.st_size);
 
           close (new_socket);
-
-
         }
-
-        else if (strcmp(temp2,"test.png")==0){
-
-          if ( ((fd = open ("test.png", O_RDONLY)) < -1) || (fstat(fd, &filestat) < 0) ) {
-              printf ("Error in measuring the size of the file");
-      }
-
-
+        else if(strcmp(temp2,"test.png")==0)
+        {
+          if(((fd = open ("test.png", O_RDONLY)) < -1) || (fstat(fd, &filestat) < 0) )
+          {
+            printf ("Error in measuring the size of the file");
+          }
           sprintf (filesize, "%zd", filestat.st_size);
           fp = fopen ("test.png", "rb");
 
@@ -133,18 +123,13 @@ int main(int argc, char const *argv[])
           write (new_socket, file_buff, filestat.st_size);
 
           close (new_socket);
-
-
         }
-        else{
-
+        else
+        {
           write(new_socket ,hello2, strlen(hello2));
           write(new_socket ,"<html><body><p>404 error requested URL not found</p></body></html>", 66);
-
         }
-
-        close(new_socket);
+      close(new_socket);
     }
-
     return 0;
 }
