@@ -1,5 +1,6 @@
 #include <stdio.h>
 #include <stdlib.h>
+#include <string.h>
 
 /* ******************************************************************
  ALTERNATING BIT AND GO-BACK-N NETWORK EMULATOR: VERSION 1.1  J.F.Kurose
@@ -43,18 +44,18 @@ struct pkt {
 void stoptimer(int AorB);  /* A or B is trying to stop timer */
 
 void starttimer(int AorB, float increment);  /* A or B is trying to stop timer */
-  
+
 void tolayer3(int AorB, struct pkt packet);  /* A or B is trying to stop timer */
-  
+
 void tolayer5(int AorB,char datasent[20]);
-  
+
 
 //Dessa funktioner ska implementeras av studenterna i Stud.c och anropas
 //av det simulerade applikationslagret samt nätverkslagret
 
 /* called from layer 5, passed the data to be sent to other side */
 void A_output(struct msg message);
-  
+
 void B_output(struct msg message);  /* need be completed only for extra credit */
 
 /* called from layer 3, when a packet arrives for layer 4 */
@@ -78,5 +79,3 @@ void B_timerinterrupt();
 /* the following rouytine will be called once (only) before any other */
 /* entity B routines are called. You can use it to do any initialization */
 void B_init();
-
-
