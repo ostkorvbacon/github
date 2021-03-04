@@ -1,24 +1,33 @@
 /********* STUDENTS WRITE THE NEXT SEVEN ROUTINES *********/
 
 #include "Stud.h"
-
+enum hostnum {
+  A,
+  B
+};
 
 /* called from layer 5, passed the data to be sent to other side */
 void A_output( struct msg message)
 {
-  int k, i = 0;
+  int k, altbit = 0;
   struct pkt packet;
   int checksum = 0;
   for(k = 0; k < 20; k++)
   {
-    checksum = checksum + (int)(message.data[i]);
+    checksum = checksum + (int)(message.data[k]);
   }
   packet.checksum = checksum;
-  packet.seqnum = i;
-  i++;
-  strcpy(packet.payload, message.data);
-  B_input(packet);
-
+  packet.seqnum = altbit;
+  altbit++;
+  for(k = 0; k < 20; k++)
+  {
+    packet.payload[k] = message.data[k];
+  }
+  /*
+  printf("\nA seqnum: %d\n\n", packet.seqnum);
+  printf("\nA checksum: %d\n\n", packet.checksum);
+  */
+  tolayer3(A,packet);
 }
 
 void B_output(struct msg message)  /* need be completed only for extra credit */
@@ -44,17 +53,27 @@ void A_init()
 /* called from layer 3, when a packet arrives for layer 4 at B*/
 void B_input(struct pkt packet)
 {
-  int k = 0, i = 0;
+  int k, altbit = 0;
   int checksum = 0;
-
-  for(k; k < 20; k++)
+  struct msg message;
+  for(k = 0; k < 20; k++)
   {
-    checksum = checksum + (int)(packet.payload[i]);
+    message.data[k] = packet.payload[k];
   }
-  if(packet.seqnum == i && packet.checksum == checksum)
+  for(k = 0; k < 20; k++)
   {
-    i++;
+    checksum = checksum + (int)(packet.payload[k]);
+  }
+  /*
+  printf("\nB seqnum: %d\n\n", packet.seqnum);
+  printf("\nB checksum: %d\n\n", packet.checksum);
+  printf("\nT checksum: %d\n\n", checksum);
+  */
+  if(packet.seqnum == altbit && packet.checksum == checksum)
+  {
     printf("\n--ACK--\n\n");
+    altbit++;
+    tolayer5(B, message.data);
   }
 }
 
