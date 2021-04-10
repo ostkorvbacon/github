@@ -40,6 +40,7 @@ for (int i=0;i<4;i++){
 dt0.costs[1][1]=1;
 dt0.costs[2][2]=3;
 dt0.costs[3][3]=7;
+
 packet.sourceid=0;
 packet.mincost[0]=999;
 packet.mincost[1]=1;
