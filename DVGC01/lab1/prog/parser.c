@@ -13,7 +13,7 @@
 /* Other OBJECT's METHODS (IMPORTED)                                  */
 /**********************************************************************/
 #include "keytoktab.h"          /* when the keytoktab is added   */
-/* #include "lexer.h"       */       /* when the lexer     is added   */
+#include "lexer.h"              /* when the lexer     is added   */
 /* #include "symtab.h"      */       /* when the symtab    is added   */
 /* #include "optab.h"       */       /* when the optab     is added   */
 
@@ -69,13 +69,13 @@ static void operand();
 /**********************************************************************/
 static void match(int t)
 {
-   if(DEBUG) printf("\n -------- In match expected: %4d, found: %4d",
-                    t, lookahead);
+   if(DEBUG) printf("\n -------- In match expected: %7s found: %7s",
+                    tok2lex(t), tok2lex(lookahead));
    if (lookahead == t) lookahead = pget_token();
    else {
       is_parse_ok=0;
-      printf("\n *** Unexpected Token: expected: %4d found: %4d (in match)",
-              t, lookahead);
+      printf("\n *** Unexpected Token: expected: %7s found: %7s (in match)",
+              tok2lex(t), tok2lex(lookahead));
       }
    }
 
