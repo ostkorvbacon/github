@@ -10,35 +10,33 @@
 /**********************************************************************/
 /* Other OBJECT's METHODS (IMPORTED)                                  */
 /**********************************************************************/
+#include "optab.h"
 #include "keytoktab.h"
-#include "symtab.h"
 
 /**********************************************************************/
 /* The main function (the driver)                                     */
 /**********************************************************************/
 int main()
 {
-   p_symtab();
-   addp_name("abc");
-   addv_name("A");
-   addv_name("B");
-   setv_type(integer);
-   addv_name("C");
-   addv_name("D");
-   setv_type(real);
-   addv_name("E");
-   addv_name("F");
-   setv_type(boolean);
-   p_symtab();
+   p_optab();                   /* display the operator table         */
 
-   if (find_name("abc")) printf("\n name FOUND ");
-   else printf("\n name NOT FOUND ");
-   if (find_name("A")) printf("\n name FOUND ");
-   else printf("\n name NOT FOUND ");
-   if (find_name("B")) printf("\n name FOUND ");
-   else printf("\n name NOT FOUND ");
-   if (find_name("X")) printf("\n name FOUND ");
-   else printf("\n name NOT FOUND ");
+   printf("\n + int  int  is %s ", tok2lex(get_otype('+', integer, integer)));
+   printf("\n + real real is %s ", tok2lex(get_otype('+', real,    real)));
+   printf("\n + int  real is %s ", tok2lex(get_otype('+', integer, real)));
+   printf("\n + real int  is %s ", tok2lex(get_otype('+', real,    integer)));
+
+   printf("\n * int  int  is %s ", tok2lex(get_otype('*', integer, integer)));
+   printf("\n * real real is %s ", tok2lex(get_otype('*', real,    real)));
+   printf("\n * int  real is %s ", tok2lex(get_otype('*', integer, real)));
+   printf("\n * real int  is %s ", tok2lex(get_otype('*', real,    integer)));
+
+   printf("\n + bool bool is %s ", tok2lex(get_otype('+', boolean, boolean)));
+   printf("\n * bool bool is %s ", tok2lex(get_otype('*', boolean, boolean)));
+
+   printf("\n - int  int  is %s ", tok2lex(get_otype('-', integer, integer)));
+   printf("\n / int  int  is %s ", tok2lex(get_otype('/', integer, integer)));
+
+
 
    printf("\n\n");
    }

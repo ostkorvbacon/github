@@ -14,8 +14,8 @@
 /**********************************************************************/
 #include "keytoktab.h"          /* when the keytoktab is added   */
 #include "lexer.h"              /* when the lexer     is added   */
-/* #include "symtab.h"      */       /* when the symtab    is added   */
-/* #include "optab.h"       */       /* when the optab     is added   */
+#include "symtab.h"             /* when the symtab    is added   */
+#include "optab.h"              /* when the optab     is added   */
 
 /**********************************************************************/
 /* OBJECT ATTRIBUTES FOR THIS OBJECT (C MODULE)                       */
@@ -89,11 +89,16 @@ static void prog()
   {
     stat_part();  if(DEBUG == 2 || DEBUG == 3) out("stat_part");
   }
+  p_symtab();
 }
 static void prog_header()
 {
   if(DEBUG == 2 || DEBUG == 3) in("program_header");
   match(program);
+  if(lookahead == id)
+    addp_name(get_lexeme());
+  else
+    addp_name("error");
   match(id);
   match('(');
   match(input);
@@ -128,6 +133,7 @@ static void var_dec()
 }
 static void id_list()
 {
+  addv_name(get_lexeme());
   if(DEBUG == 3) in("id_list");
   match(id);
   if(lookahead == ',')
@@ -140,11 +146,20 @@ static void type()
 {
   if(DEBUG == 3) in("type");
   if(lookahead == integer)
+  {
+    setv_type(integer);
     match(integer);
+  }
   else if(lookahead == real)
+  {
+    setv_type(real);
     match(real);
+  }
   else if(lookahead == boolean)
+  {
+    setv_type(boolean);
     match(boolean);
+  }
 }
 static void stat_part()
 {
