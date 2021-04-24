@@ -41,10 +41,10 @@ static void stat_part();
 static void stat_list();
 static void stat();
 static void assign_stat();
-static void expr();
-static void term();
-static void factor();
-static void operand();
+int expr();
+int term();
+int factor();
+int operand();
 /**********************************************************************/
 /* The Parser functions                                               */
 /**********************************************************************/
@@ -98,7 +98,7 @@ static void prog_header()
   if(lookahead == id)
     addp_name(get_lexeme());
   else
-    addp_name("error");
+    addp_name("Error");
   match(id);
   match('(');
   match(input);
@@ -186,53 +186,90 @@ static void stat()
 }
 static void assign_stat()
 {
+  int a, b;
   if(DEBUG == 3) in("assign_stat");
+  if(lookahead == id && find_name(get_lexeme()) == 1)
+    a = get_ntype(get_lexeme());
+  else
+    printf("Error. id not declared\n");
   match(id);
   match(assign);
-  expr(); if(DEBUG == 3) out("expr");
-}
-static void expr()
-{
-  if(DEBUG == 3) in("expr");
-  term();
-  if(lookahead == '+')
+  b = expr(); if(DEBUG == 3) out("expr");
+  if(a == undef || b == undef)
+    printf("Error. argument undefined\n");
+  if(a !=b )
   {
-    match('+');
-    expr(); if(DEBUG == 3) out("expr");
-  }
-}
-static void term()
-{
-  if(DEBUG == 3) in("term");
-  factor();
-  if(lookahead == '*')
-  {
-    match('*');
-    term(); if(DEBUG == 3) out("term");
+    printf("Error. Assigning diferent types. %s does not equal %s\n",
+    tok2lex(a), tok2lex(b));
+    is_parse_ok = 0;
   }
 
 }
-static void factor()
+int expr()
 {
+  int b;
+  if(DEBUG == 3) in("expr");
+  b = term();
+  if(lookahead == '+')
+  {
+    match('+');
+    b = get_otype('+', b, expr()); if(DEBUG == 3) out("expr");
+  }
+  return b;
+}
+int term()
+{
+  int b;
+  if(DEBUG == 3) in("term");
+  b = factor();
+  if(lookahead == '*')
+  {
+    match('*');
+    b = get_otype('+', b, term()); if(DEBUG == 3) out("term");
+  }
+  return b;
+}
+int factor()
+{
+  int b;
   if(DEBUG == 3) in("factor");
   if(lookahead == '(')
   {
     match('(');
-    expr(); if(DEBUG == 3) out("expr");
+    b = expr(); if(DEBUG == 3) out("expr");
     match(')');
   }
   else
   {
-    operand();  if(DEBUG == 3) out("operand");
+    b = operand();  if(DEBUG == 3) out("operand");
   }
+  return b;
 }
-static void operand()
+int operand()
 {
+  int b;
   if(DEBUG == 3) in("operand");
   if(lookahead == id)
-    match(id);
+  {
+    if(find_name(get_lexeme()) == 1)
+    {
+      b = get_ntype(get_lexeme());
+      match(id);
+    }
+    else
+      printf("Error, id not declared\n");
+  }
   else if(lookahead == number)
+  {
+    b = integer;
     match(number);
+  }
+  else
+  {
+    printf("Error in operand\n");
+    b = error;
+  }
+  return b;
 }
 
 /**********************************************************************/

@@ -18,7 +18,7 @@
 /* OBJECT ATTRIBUTES FOR THIS OBJECT (C MODULE)                       */
 /**********************************************************************/
 #define NENTS 4
-
+#define COUNT 8
 static int optab[][NENTS] = {
    {'+', integer, integer, integer},
    {'+', real,    real,    real},
@@ -43,15 +43,15 @@ static int optab[][NENTS] = {
 /**********************************************************************/
 void p_optab()
 {
-int rows  = 9;
+int i;
 printf("  THE OPERATOR TABLE\n");
 printf("________________________________________________________\n");
 printf("   operator        arg1        arg2      result\n");
 printf("________________________________________________________\n");
-for(i = 0; i < ROWS; i++)
-  printf("          %s,    %7s,    %7s,    %7s \n",
+for(i = 0; i < COUNT; i++)
+  printf("          %c,    %7s,    %7s,    %7s \n",
   optab[i][0],tok2lex(optab[i][1]),tok2lex(optab[i][2]),tok2lex(optab[i][3]));
-printf("________________________________________________________\n",);
+printf("________________________________________________________\n");
 }
 
 /**********************************************************************/
@@ -59,7 +59,15 @@ printf("________________________________________________________\n",);
 /**********************************************************************/
 int get_otype(int op, int arg1, int arg2)
 {
-
+  int i;
+  for(i = 0; i < COUNT; i++)
+    {
+      if(op == optab[i][0] && arg1 == optab[i][1] && arg2 == optab[i][2])
+      {
+        return optab[i][3];
+      }
+    }
+  return undef;
 }
 
 /**********************************************************************/

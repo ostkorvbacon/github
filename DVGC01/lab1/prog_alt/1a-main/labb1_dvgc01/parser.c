@@ -217,12 +217,10 @@ void assign_stat(){
   	{
   		match(id);
   	}
-
   	else
   	{
   		printf("SYNTAX:   ID expected found %s \n", get_lexeme());
   	}
-
     match(assign);
     int arg2=expr();
     if(arg1==undef)
