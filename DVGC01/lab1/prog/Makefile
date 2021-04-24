@@ -2,8 +2,8 @@ OFILES1 =  driver.o parser.o
 OFILES2 =  Dkeytoktab.o keytoktab.o
 OFILES3 =  Dlexer.o lexer.o
 all: parser tkeytoktab tlexer
-parser: $(OFILES1) keytoktab.o
-	gcc -Wall -o parser driver.o parser.o keytoktab.o
+parser: $(OFILES1) keytoktab.o lexer.o
+	gcc -Wall -o parser driver.o parser.o keytoktab.o lexer.o
 tkeytoktab: $(OFILES2)
 	gcc -Wall -o tkeytoktab Dkeytoktab.o keytoktab.o
 tlexer: $(OFILES3) keytoktab.o
