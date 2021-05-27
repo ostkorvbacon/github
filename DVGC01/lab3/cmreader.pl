@@ -3,14 +3,15 @@
 /* Chapter 5, pp 101-103 (DFR (140421) modified for input from a file)        */
 /******************************************************************************/
 
-read_in(File,[W|Ws]) :- see(File), get0(C), 
+read_in(File,[W|Ws]) :- see(File), get0(C),
                         readword(C, W, C1), restsent(W, C1, Ws), nl, seen.
 
 /******************************************************************************/
 /* Given a word and the character after it, read in the rest of the sentence  */
 /******************************************************************************/
 
-restsent(W, _, [])         :- W = -1.                /* added EOF handling */
+restsent(W, _, [])         :- W = -1.
+/* added EOF handling */
 restsent(W, _, [])         :- lastword(W).
 restsent(_, C, [W1 | Ws ]) :- readword(C, W1, C1), restsent(W1, C1, Ws).
 
