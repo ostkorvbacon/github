@@ -177,8 +177,8 @@ testall :- tell('tests.out'),
 
  write('Testing sem programs '), nl, nl,
 
- parseFiles(['testfiles/sem1.pas', 'testfiles/sem2.pas', 'testfiles/sem3.pas', 'testfiles/sem4.pas', 'testfiles/sem5.pas']),told.
-
+ parseFiles(['testfiles/sem2.pas', 'testfiles/sem3.pas', 'testfiles/sem4.pas', 'testfiles/sem5.pas']),told.
+ testfun :- parseFiles(['testfiles/fun1.pas', 'testfiles/fun2.pas']).
  parseFiles([]).
  parseFiles([H|T]) :-  write('Testing '), write(H), nl,
                        read_in(H,L), lexer(L, Tokens),

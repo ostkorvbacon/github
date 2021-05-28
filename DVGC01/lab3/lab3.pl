@@ -3,6 +3,7 @@
 
   read_in(File,[W|Ws]) :- see(File), get0(C),
                           readword(C, W, C1), restsent(W, C1, Ws), nl, seen.
+
   /******************************************************************************/
   /* Given a word and the character after it, read in the rest of the sentence  */
   /******************************************************************************/
@@ -18,7 +19,9 @@
   /******************************************************************************/
 
   readword(C, W, _)  :- C = -1, W = C.                    /* added EOF handling */
+  readword(C, W, C2) :- C=  58, get0(C1), raux(C, W, C1, C2).
   readword(C, W, C1) :- single_character( C ), name(W, [C]), get0(C1).
+  readword(C, W, C2) :- C>47,C<58, name(W, [C]), get0(C2), write('C: '), write(C), nl, write('W: '), write(W),nl, write('C2: '), write(C2), nl.
   readword(C, W, C2) :-
      in_word(C, NewC ),
      get0(C1),
@@ -26,7 +29,8 @@
      name(W, [NewC|Cs]).
 
   readword(_, W, C2) :- get0(C1), readword(C1, W, C2).
-
+  raux(C, W, C1, C2) :- C1 = 61, name(W, [C, C1]), get0(C2).
+  raux(C, W, C1, C2) :- C1 \= 61, name(W, [C]), C1 = C2.
   restword(C, [NewC|Cs], C2) :-
      in_word(C, NewC),
      get0(C1),
@@ -78,20 +82,14 @@
   match(L, F) :- L ='integer', F is 263.
   match(L, F) :- L ='real', F is 264.
   match(L, F) :- L =':=', F is 271.
-
-
-  match(L, F) :- L ='$', F is 49.
   match(L, F) :- L ='(', F is 40.
   match(L, F) :- L =')', F is 41.
   match(L, F) :- L ='*', F is 42.
   match(L, F) :- L ='+', F is 43.
   match(L, F) :- L =',', F is 44.
-  match(L, F) :- L ='-', F is 45.
   match(L, F) :- L ='.', F is 46.
-  match(L, F) :- L ='/', F is 47.
   match(L, F) :- L =':', F is 58.
   match(L, F) :- L =';', F is 59.
-  match(L, F) :- L ='=', F is 60.
 
   match(L, F) :- name(L, [T|S]), char_type(T, alpha), match_alfanum(S), F is 269.
   match(L, F) :- name(L, [T|S]), char_type(T, digit), match_digit(S), F is 270.
@@ -148,8 +146,9 @@
   assign --> [271].
 
 /*start*/
+  reader :- read_in('testfiles/fun2.pas', R), write('testok1: '), write(R), nl.
   parseall:-
-    tell('parser.out'),
+    %tell('parser.out'),
     write('Testing OK programs '), nl, nl,
     parseFiles([
       'testfiles/testok1.pas', 'testfiles/testok2.pas', 'testfiles/testok3.pas',
