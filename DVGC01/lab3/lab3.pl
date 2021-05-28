@@ -2,9 +2,7 @@
 /*Reader*/
 
   read_in(File,[W|Ws]) :- see(File), get0(C),
-                          readword(C, W, C1), restsent(W, C1, Ws), nl, seen,
-                          write('In Reader'), nl.
-
+                          readword(C, W, C1), restsent(W, C1, Ws), nl, seen.
   /******************************************************************************/
   /* Given a word and the character after it, read in the rest of the sentence  */
   /******************************************************************************/
@@ -67,89 +65,124 @@
 
 /*Lexer*/
   lexer([ ], [ ]).
-  lexer([H|T], [F|S]) :-match(H, F), lexer(T,S). 
+  lexer([H|T], [F|S]) :- match(H, F), lexer(T,S).
 
+
+  match(L, F) :- L ='program', F is 256.
+  match(L, F) :- L ='input', F is 257.
+  match(L, F) :- L ='output', F is 258.
+  match(L, F) :- L ='var', F is 259.
+  match(L, F) :- L ='begin', F is 260.
+  match(L, F) :- L ='end', F is 261.
+  match(L, F) :- L ='boolean', F is 262.
+  match(L, F) :- L ='integer', F is 263.
+  match(L, F) :- L ='real', F is 264.
+  match(L, F) :- L =':=', F is 271.
+
+
+  match(L, F) :- L ='$', F is 49.
+  match(L, F) :- L ='(', F is 50.
+  match(L, F) :- L =')', F is 51.
+  match(L, F) :- L ='*', F is 52.
+  match(L, F) :- L ='+', F is 53.
+  match(L, F) :- L =',', F is 54.
+  match(L, F) :- L ='-', F is 55.
+  match(L, F) :- L ='.', F is 56.
+  match(L, F) :- L ='/', F is 57.
+  match(L, F) :- L =':', F is 58.
+  match(L, F) :- L =';', F is 59.
+  match(L, F) :- L ='=', F is 60.
+
+  match(L, F) :- name(L, [T|S]), char_type(T, alpha), match_alfanum(S), F is 269.
+  match(L, F) :- name(L, [T|S]), char_type(T, digit), match_digit(S), F is 270.
+  match(L, F) :- char_type(L, ascii), F is 272.
+  match(L, F) :- char_type(L, end_of_file), F is 273.
+
+  match_alfanum([ ]).
+  match_alfanum([H|T]) :- char_type(H, alnum), match_alfanum(T).
+  match_digit([ ]).
+  match_digit([H|T]) :- char_type(H, digit), match_digit(T).
 
 
 /*Parser*/
-  parser(Tokens, Result) :- write('in parser'), nl, format("~w~n", [Tokens]),
-  program(Tokens, Result).
-  program       --> prog_head, var_part, stat_part.
+  parser(Tokens, Result) :- (prog(Tokens, Result), write('Parse OK!'), nl, Result = []);
+  write('Parse Fail!'), nl.
 
-  /******************************************************************************/
-  /* Program Header                                                             */
-  /******************************************************************************/
-  prog_head     --> [program], id, ['('], [input], [','], [output], [')'], [';'].
-  id            --> [a]|[b]|[c].
+  prog --> prog_header, var_part, stat_part.
+  prog_header --> program, id, lp, input, comma, output, rp, scolon.
 
-  /******************************************************************************/
-  /* Var_part                                                                   */
-  /******************************************************************************/
-  var_part             --> var_part_todo.
-  var_part_todo(_,_)   :-  write('var_part:  To Be Done'), nl.
+  var_part --> var, var_dec_lst.
+  var_dec_lst --> var_dec | var_dec, var_dec_lst.
+  var_dec --> id_lst, colon, type, scolon.
+  id_lst --> id | id, comma, id_lst.
+  type --> integer | boolean | real.
 
-  /******************************************************************************/
-  /* Stat part                                                                  */
-  /******************************************************************************/
-  stat_part            -->  stat_part_todo.
-  stat_part_todo(_,_)  :-   write('stat_part: To Be Done'), nl.
+  stat_part     --> begin, stat_lst, end, fstop.
+  stat_lst --> stat| stat, scolon, stat_lst.
+  stat --> assign_stat.
+  assign_stat --> id, assign, expr.
+  expr --> term | term, plus, expr.
+  term --> factor | factor, mult, term.
+  factor --> lp, expr, rp | operand.
+  operand --> id | numbr.
 
-/*tjafs*/
-    /******************************************************************************/
-    /* Testing the system: this may be done stepwise in Prolog                    */
-    /* below are some examples of a "bottom-up" approach - start with simple      */
-    /* tests and buid up until a whole program can be tested                      */
-    /******************************************************************************/
-    /* Stat part                                                                  */
-    /******************************************************************************/
-    /*  op(['+'], []).                                                            */
-    /*  op(['-'], []).                                                            */
-    /*  op(['*'], []).                                                            */
-    /*  op(['/'], []).                                                            */
-    /*  addop(['+'], []).                                                         */
-    /*  addop(['-'], []).                                                         */
-    /*  mulop(['*'], []).                                                         */
-    /*  mulop(['/'], []).                                                         */
-    /*  factor([a], []).                                                          */
-    /*  factor(['(', a, ')'], []).                                                */
-    /*  term([a], []).                                                            */
-    /*  term([a, '*', a], []).                                                    */
-    /*  expr([a], []).                                                            */
-    /*  expr([a, '*', a], []).                                                    */
-    /*  assign_stat([a, assign, b], []).                                          */
-    /*  assign_stat([a, assign, b, '*', c], []).                                  */
-    /*  stat([a, assign, b], []).                                                 */
-    /*  stat([a, assign, b, '*', c], []).                                         */
-    /*  stat_list([a, assign, b], []).                                            */
-    /*  stat_list([a, assign, b, '*', c], []).                                    */
-    /*  stat_list([a, assign, b, ';', a, assign, c], []).                         */
-    /*  stat_list([a, assign, b, '*', c, ';', a, assign, b, '*', c], []).         */
-    /*  stat_part([begin, a, assign, b, '*', c, end, '.'], []).                   */
-    /******************************************************************************/
-    /* Var part                                                                   */
-    /******************************************************************************/
-    /* typ([integer], []).                                                        */
-    /* typ([real], []).                                                           */
-    /* typ([boolean], []).                                                        */
-    /* id([a], []).                                                               */
-    /* id([b], []).                                                               */
-    /* id([c], []).                                                               */
-    /* id_list([a], []).                                                          */
-    /* id_list([a, ',', b], []).                                                  */
-    /* id_list([a, ',', b, ',', c], []).                                          */
-    /* var_dec([a, ':', integer], []).                                            */
-    /* var_dec_list([a, ':', integer], []).                                       */
-    /* var_dec_list([a, ':', integer, b, ':', real], []).                         */
-    /* var_part([var, a, ':', integer], []).                                      */
-    /******************************************************************************/
+  lp -->  [40].       /*(*/
+  rp -->  [41].       /*)*/
+  mult -->  [42].     /***/
+  plus -->  [43].     /*+*/
+  comma -->  [44].    /*,*/
+  fstop -->  [46].    /*.*/
+  colon -->  [58].    /*:*/
+  scolon -->  [59].   /*;*/
+  program --> [256].
+  input --> [257].
+  output --> [258].
+  var --> [259].
+  begin --> [260].
+  end --> [261].
+  boolean --> [262].
+  integer --> [263].
+  real --> [264].
+  id --> [269].
+  numbr --> [270].
+  assign --> [271].
+
 /*start*/
+  parseall:-
+    tell('parser.out'),
+    write('Testing OK programs '), nl, nl,
+    parseFiles([
+      'testfiles/testok1.pas', 'testfiles/testok2.pas', 'testfiles/testok3.pas',
+      'testfiles/testok4.pas','testfiles/testok5.pas', 'testfiles/testok6.pas',
+      'testfiles/testok7.pas']),
+    write('Testing a-z programs '), nl, nl,
+    parseFiles([
+      'testfiles/testa.pas',
+      'testfiles/testb.pas', 'testfiles/testc.pas', 'testfiles/testd.pas',
+      'testfiles/teste.pas', 'testfiles/testf.pas', 'testfiles/testg.pas',
+      'testfiles/testh.pas', 'testfiles/testi.pas', 'testfiles/testj.pas',
+      'testfiles/testk.pas', 'testfiles/testl.pas', 'testfiles/testm.pas',
+      'testfiles/testn.pas', 'testfiles/testo.pas', 'testfiles/testp.pas',
+      'testfiles/testq.pas', 'testfiles/testr.pas', 'testfiles/tests.pas',
+      'testfiles/testt.pas', 'testfiles/testu.pas', 'testfiles/testv.pas',
+      'testfiles/testw.pas', 'testfiles/testx.pas', 'testfiles/testy.pas',
+      'testfiles/testz.pas']),
+    write('Testing fun programs '), nl, nl,
+    parseFiles([
+      'testfiles/fun1.pas', 'testfiles/fun2.pas', 'testfiles/fun3.pas',
+      'testfiles/fun4.pas', 'testfiles/fun5.pas']),
+    write('Testing sem programs '), nl, nl,
+    parseFiles([
+      'testfiles/sem1.pas', 'testfiles/sem2.pas', 'testfiles/sem3.pas',
+      'testfiles/sem4.pas', 'testfiles/sem5.pas']),
+    told.
 
-testa :- parseFiles(['testok1.pas','testok2.pas','testok3.pas']).
+
   parseFiles([]).
   parseFiles([H|T]) :-
     write('Testing: '), write(H), nl,
-    read_in(H,L), format("~w~n", [L]),
+    read_in(H,L),
     lexer(L, Tokens),
-    parser(Tokens, Result),
+    parser(Tokens, []), write(L), nl, write(Tokens),
     nl, write(H), write(' end'), nl, nl,
     parseFiles(T).
