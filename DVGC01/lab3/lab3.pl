@@ -43,10 +43,10 @@
   single_character(42).                  /* + */
   single_character(43).                  /* * */
   single_character(44).                  /* , */
+  single_character(46).                  /* . */
   single_character(59).                  /* ; */
   single_character(58).                  /* : */
   single_character(61).                  /* = */
-  single_character(46).                  /* . */
 
   /******************************************************************************/
   /* These characters can appear within a word.                                 */
@@ -81,14 +81,14 @@
 
 
   match(L, F) :- L ='$', F is 49.
-  match(L, F) :- L ='(', F is 50.
-  match(L, F) :- L =')', F is 51.
-  match(L, F) :- L ='*', F is 52.
-  match(L, F) :- L ='+', F is 53.
-  match(L, F) :- L =',', F is 54.
-  match(L, F) :- L ='-', F is 55.
-  match(L, F) :- L ='.', F is 56.
-  match(L, F) :- L ='/', F is 57.
+  match(L, F) :- L ='(', F is 40.
+  match(L, F) :- L =')', F is 41.
+  match(L, F) :- L ='*', F is 42.
+  match(L, F) :- L ='+', F is 43.
+  match(L, F) :- L =',', F is 44.
+  match(L, F) :- L ='-', F is 45.
+  match(L, F) :- L ='.', F is 46.
+  match(L, F) :- L ='/', F is 47.
   match(L, F) :- L =':', F is 58.
   match(L, F) :- L =';', F is 59.
   match(L, F) :- L ='=', F is 60.
