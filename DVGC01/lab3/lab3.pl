@@ -1,7 +1,9 @@
+
 /*Reader*/
 
   read_in(File,[W|Ws]) :- see(File), get0(C),
-                          readword(C, W, C1), restsent(W, C1, Ws), nl, seen.
+                          readword(C, W, C1), restsent(W, C1, Ws), nl, seen,
+                          write('In Reader'), nl.
 
   /******************************************************************************/
   /* Given a word and the character after it, read in the rest of the sentence  */
@@ -63,27 +65,15 @@
 
   lastword('.').
 
-  /******************************************************************************/
-  /* added for demonstration purposes 140421, updated 150301                    */
-  /* testa  - file input (characters + Pascal program)                          */
-  /* testb  - file input as testa + output to file                              */
-  /* ttrace - file input + switch on tracing (check this carefully)             */
-  /******************************************************************************/
-
-  testa   :- testread(['cmreader.txt', 'testok1.pas']).
-  testb   :- tell('cmreader.out'), testread(['cmreader.txt', 'testok1.pas']), told.
-
-  ttrace  :- trace, testread(['cmreader.txt']), notrace, nodebug.
-
-  testread([]).
-  testread([H|T]) :- nl, write('Testing C&M Reader, input file: '), write(H), nl,
-                     read_in(H,L), write(L), nl,
-                     nl, write(' end of C&M Reader test'), nl,
-                     testread(T).
-
 /*Lexer*/
+  lexer([ ], [ ]).
+  lexer([H|T], [F|S]) :-match(H, F), lexer(T,S). 
+
+
 
 /*Parser*/
+  parser(Tokens, Result) :- write('in parser'), nl, format("~w~n", [Tokens]),
+  program(Tokens, Result).
   program       --> prog_head, var_part, stat_part.
 
   /******************************************************************************/
@@ -104,7 +94,7 @@
   stat_part            -->  stat_part_todo.
   stat_part_todo(_,_)  :-   write('stat_part: To Be Done'), nl.
 
-  /*tjafs*/
+/*tjafs*/
     /******************************************************************************/
     /* Testing the system: this may be done stepwise in Prolog                    */
     /* below are some examples of a "bottom-up" approach - start with simple      */
@@ -154,10 +144,12 @@
     /******************************************************************************/
 /*start*/
 
-  testa :- parseFiles( [ ’testok1.pas’, ’testok2.pas’,’testok3.pas’ ] ).
-  parseFiles([ ]).
+testa :- parseFiles(['testok1.pas','testok2.pas','testok3.pas']).
+  parseFiles([]).
   parseFiles([H|T]) :-
-   write(’Testing ’), write(H), nl,
-   read_in(H,L), lexer(L, Tokens), parser(Tokens, Result),
-   nl, write(H), write(’ end’), nl, nl,
-   parseFiles(T).
+    write('Testing: '), write(H), nl,
+    read_in(H,L), format("~w~n", [L]),
+    lexer(L, Tokens),
+    parser(Tokens, Result),
+    nl, write(H), write(' end'), nl, nl,
+    parseFiles(T).
