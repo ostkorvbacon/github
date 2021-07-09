@@ -1,5 +1,7 @@
-
+/*Olle Nordgren*/
+/* "parseall." to run program*/
 /*Reader*/
+
 
   read_in(File,[W|Ws]) :- see(File), get0(C),
                           readword(C, W, C1), restsent(W, C1, Ws), nl, seen.
@@ -21,7 +23,7 @@
   readword(C, W, _)  :- C = -1, W = C.                    /* added EOF handling */
   readword(C, W, C2) :- C=  58, get0(C1), raux(C, W, C1, C2).
   readword(C, W, C1) :- single_character( C ), name(W, [C]), get0(C1).
-  readword(C, W, C2) :- C>47,C<58, name(W, [C]), get0(C2), write('C: '), write(C), nl, write('W: '), write(W),nl, write('C2: '), write(C2), nl.
+  readword(C, W, C2) :- C>47,C<58, name(W, [C]), get0(C2).
   readword(C, W, C2) :-
      in_word(C, NewC ),
      get0(C1),
@@ -146,7 +148,6 @@
   assign --> [271].
 
 /*start*/
-  reader :- read_in('testfiles/fun2.pas', R), write('testok1: '), write(R), nl.
   parseall:-
     %tell('parser.out'),
     write('Testing OK programs '), nl, nl,
@@ -182,6 +183,6 @@
     write('Testing: '), write(H), nl,
     read_in(H,L),
     lexer(L, Tokens),
-    parser(Tokens, []), write(L), nl, write(Tokens),
+    parser(Tokens, []), write(Tokens),
     nl, write(H), write(' end'), nl, nl,
     parseFiles(T).

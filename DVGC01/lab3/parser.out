@@ -1,4 +1,4 @@
-Testing OK programs 
+Testing OK programs
 
 Testing: testfiles/testok1.pas
 
@@ -49,7 +49,7 @@ Parse Fail!
 [256,269,40,257,44,258,41,59,259,269,58,263,59,269,58,263,59,269,58,263,59,260,269,58,60,269,43,269,42,270,261,46]
 testfiles/testok7.pas end
 
-Testing a-z programs 
+Testing a-z programs
 
 Testing: testfiles/testa.pas
 
@@ -233,7 +233,7 @@ Parse Fail!
 [256,269,40,257,44,258,41,59,259,269,44,269,44,269,58,263,59,260,269,58,60,269,43,269,42,270,261,273]
 testfiles/testz.pas end
 
-Testing fun programs 
+Testing fun programs
 
 Testing: testfiles/fun1.pas
 
@@ -244,7 +244,7 @@ testfiles/fun1.pas end
 
 Testing: testfiles/fun2.pas
 
-Testing OK programs 
+Testing OK programs
 
 Testing: testfiles/testok1.pas
 
@@ -295,7 +295,7 @@ Parse Fail!
 [256,269,40,257,44,258,41,59,259,269,58,263,59,269,58,263,59,269,58,263,59,260,269,58,60,269,43,269,42,270,261,46]
 testfiles/testok7.pas end
 
-Testing a-z programs 
+Testing a-z programs
 
 Testing: testfiles/testa.pas
 
@@ -479,7 +479,7 @@ Parse Fail!
 [256,269,40,257,44,258,41,59,259,269,44,269,44,269,58,263,59,260,269,58,60,269,43,269,42,270,261,273]
 testfiles/testz.pas end
 
-Testing fun programs 
+Testing fun programs
 
 Testing: testfiles/fun1.pas
 
@@ -489,4 +489,3 @@ Parse Fail!
 testfiles/fun1.pas end
 
 Testing: testfiles/fun2.pas
-
