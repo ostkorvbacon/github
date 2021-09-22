@@ -1,5 +1,6 @@
 /*Olle Nordgren*/
 /* "parseall." to run program*/
+
 /*Reader*/
 
 
@@ -49,10 +50,12 @@
   single_character(42).                  /* + */
   single_character(43).                  /* * */
   single_character(44).                  /* , */
+  single_character(45).		               /* - */
   single_character(46).                  /* . */
   single_character(59).                  /* ; */
   single_character(58).                  /* : */
   single_character(61).                  /* = */
+
 
   /******************************************************************************/
   /* These characters can appear within a word.                                 */
@@ -78,10 +81,10 @@
   match(L, F) :- L ='input', F is 257.
   match(L, F) :- L ='output', F is 258.
   match(L, F) :- L ='var', F is 259.
-  match(L, F) :- L ='begin', F is 260.
-  match(L, F) :- L ='end', F is 261.
-  match(L, F) :- L ='boolean', F is 262.
-  match(L, F) :- L ='integer', F is 263.
+  match(L, F) :- L ='integer', F is 260.
+  match(L, F) :- L ='begin', F is 261.
+  match(L, F) :- L ='end', F is 262.
+  match(L, F) :- L ='boolean', F is 263.
   match(L, F) :- L ='real', F is 264.
   match(L, F) :- L =':=', F is 271.
   match(L, F) :- L ='(', F is 40.
@@ -93,10 +96,10 @@
   match(L, F) :- L =':', F is 58.
   match(L, F) :- L =';', F is 59.
 
-  match(L, F) :- name(L, [T|S]), char_type(T, alpha), match_alfanum(S), F is 269.
-  match(L, F) :- name(L, [T|S]), char_type(T, digit), match_digit(S), F is 270.
-  match(L, F) :- char_type(L, ascii), F is 272.
-  match(L, F) :- char_type(L, end_of_file), F is 273.
+  match(L, F) :- name(L, [T|S]), char_type(T, alpha), match_alfanum(S), F is 270.
+  match(L, F) :- name(L, [T|S]), char_type(T, digit), match_digit(S), F is 272.
+  match(L, F) :- char_type(L, ascii), F is 273.
+  match(L, F) :- char_type(L, end_of_file), F is 275.
 
   match_alfanum([ ]).
   match_alfanum([H|T]) :- char_type(H, alnum), match_alfanum(T).
@@ -138,18 +141,19 @@
   input --> [257].
   output --> [258].
   var --> [259].
-  begin --> [260].
-  end --> [261].
-  boolean --> [262].
-  integer --> [263].
+  integer --> [260].
+  begin --> [261].
+  end --> [262].
+  boolean --> [263].
   real --> [264].
-  id --> [269].
-  numbr --> [270].
+  id --> [270].
   assign --> [271].
+  numbr --> [272].
+
 
 /*start*/
   parseall:-
-    %tell('parser.out'),
+    tell('parser.out'),
     write('Testing OK programs '), nl, nl,
     parseFiles([
       'testfiles/testok1.pas', 'testfiles/testok2.pas', 'testfiles/testok3.pas',
@@ -180,9 +184,10 @@
 
   parseFiles([]).
   parseFiles([H|T]) :-
-    write('Testing: '), write(H), nl,
+    write('Testing '), write(H), nl,
     read_in(H,L),
-    lexer(L, Tokens),
-    parser(Tokens, []), write(Tokens),
-    nl, write(H), write(' end'), nl, nl,
+    lexer(L, Tokens), write(L), nl,
+    write(Tokens), nl,
+    parser(Tokens, []),
+    write(H), write(' end of parse'), nl, nl,
     parseFiles(T).

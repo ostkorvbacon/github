@@ -1,491 +1,309 @@
-Testing OK programs
+Testing OK programs 
 
-Testing: testfiles/testok1.pas
+Testing testfiles/testok1.pas
 
-Parse Fail!
-[program,testok1,(,input,,,output,),;,var,a,,,b,,,c,:,integer,;,begin,a,:,=,b,+,c,*,2,end,.]
-[256,269,40,257,44,258,41,59,259,269,44,269,44,269,58,263,59,260,269,58,60,269,43,269,42,270,261,46]
-testfiles/testok1.pas end
+[program,testok1,(,input,,,output,),;,var,a,,,b,,,c,:,integer,;,begin,a,:=,b,+,c,*,2,end,.]
+[256,270,40,257,44,258,41,59,259,270,44,270,44,270,58,260,59,261,270,271,270,43,270,42,272,262,46]
+Parse OK!
+testfiles/testok1.pas end of parse
 
-Testing: testfiles/testok2.pas
+Testing testfiles/testok2.pas
 
-Parse Fail!
-[program,testok2,(,input,,,output,),;,var,a,,,b,,,c,:,integer,;,d,,,e,,,f,:,integer,;,g,,,h,,,i,:,integer,;,begin,a,:,=,b,+,c,*,2,;,d,:,=,e,+,f,*,2,;,g,:,=,h,+,i,*,2,end,.]
-[256,269,40,257,44,258,41,59,259,269,44,269,44,269,58,263,59,269,44,269,44,269,58,263,59,269,44,269,44,269,58,263,59,260,269,58,60,269,43,269,42,270,59,269,58,60,269,43,269,42,270,59,269,58,60,269,43,269,42,270,261,46]
-testfiles/testok2.pas end
+[program,testok2,(,input,,,output,),;,var,a,,,b,,,c,:,integer,;,d,,,e,,,f,:,integer,;,g,,,h,,,i,:,integer,;,begin,a,:=,b,+,c,*,2,;,d,:=,e,+,f,*,2,;,g,:=,h,+,i,*,2,end,.]
+[256,270,40,257,44,258,41,59,259,270,44,270,44,270,58,260,59,270,44,270,44,270,58,260,59,270,44,270,44,270,58,260,59,261,270,271,270,43,270,42,272,59,270,271,270,43,270,42,272,59,270,271,270,43,270,42,272,262,46]
+Parse OK!
+testfiles/testok2.pas end of parse
 
-Testing: testfiles/testok3.pas
+Testing testfiles/testok3.pas
 
-Parse Fail!
-[program,testok3,(,input,,,output,),;,var,a,,,b,,,c,:,integer,;,begin,a,:,=,2,+,6,*,8,;,b,:,=,3,+,9,*,1,;,c,:,=,4,+,1,*,1,end,.]
-[256,269,40,257,44,258,41,59,259,269,44,269,44,269,58,263,59,260,269,58,60,270,43,270,42,270,59,269,58,60,270,43,270,42,270,59,269,58,60,270,43,270,42,270,261,46]
-testfiles/testok3.pas end
+[program,testok3,(,input,,,output,),;,var,a,,,b,,,c,:,integer,;,begin,a,:=,2,+,6,*,8,;,b,:=,3,+,9,*,1,;,c,:=,4,+,1,*,1,end,.]
+[256,270,40,257,44,258,41,59,259,270,44,270,44,270,58,260,59,261,270,271,272,43,272,42,272,59,270,271,272,43,272,42,272,59,270,271,272,43,272,42,272,262,46]
+Parse OK!
+testfiles/testok3.pas end of parse
 
-Testing: testfiles/testok4.pas
+Testing testfiles/testok4.pas
 
-Parse Fail!
-[program,testok4,(,input,,,output,),;,var,a,,,b,,,c,:,integer,;,dd,,,ee,,,ff,:,integer,;,begin,a,:,=,b,+,c,*,2,end,.]
-[256,269,40,257,44,258,41,59,259,269,44,269,44,269,58,263,59,269,44,269,44,269,58,263,59,260,269,58,60,269,43,269,42,270,261,46]
-testfiles/testok4.pas end
+[program,testok4,(,input,,,output,),;,var,a,,,b,,,c,:,integer,;,dd,,,ee,,,ff,:,integer,;,begin,a,:=,b,+,c,*,2,end,.]
+[256,270,40,257,44,258,41,59,259,270,44,270,44,270,58,260,59,270,44,270,44,270,58,260,59,261,270,271,270,43,270,42,272,262,46]
+Parse OK!
+testfiles/testok4.pas end of parse
 
-Testing: testfiles/testok5.pas
+Testing testfiles/testok5.pas
 
-Parse Fail!
-[program,testok5,(,input,,,output,),;,var,x,,,y,,,z,:,integer,;,a,:,integer,;,b,:,integer,;,c,:,integer,;,begin,x,:,=,y,+,z,*,2,;,a,:,=,b,+,c,*,2,end,.]
-[256,269,40,257,44,258,41,59,259,269,44,269,44,269,58,263,59,269,58,263,59,269,58,263,59,269,58,263,59,260,269,58,60,269,43,269,42,270,59,269,58,60,269,43,269,42,270,261,46]
-testfiles/testok5.pas end
+[program,testok5,(,input,,,output,),;,var,x,,,y,,,z,:,integer,;,a,:,integer,;,b,:,integer,;,c,:,integer,;,begin,x,:=,y,+,z,*,2,;,a,:=,b,+,c,*,2,end,.]
+[256,270,40,257,44,258,41,59,259,270,44,270,44,270,58,260,59,270,58,260,59,270,58,260,59,270,58,260,59,261,270,271,270,43,270,42,272,59,270,271,270,43,270,42,272,262,46]
+Parse OK!
+testfiles/testok5.pas end of parse
 
-Testing: testfiles/testok6.pas
+Testing testfiles/testok6.pas
 
-Parse Fail!
-[program,testok6,(,input,,,output,),;,var,id,,,number,,,assign,:,integer,;,begin,id,:,=,(,number,+,assign,),*,2,end,.]
-[256,269,40,257,44,258,41,59,259,269,44,269,44,269,58,263,59,260,269,58,60,40,269,43,269,41,42,270,261,46]
-testfiles/testok6.pas end
+[program,testok6,(,input,,,output,),;,var,id,,,number,,,assign,:,integer,;,begin,id,:=,(,number,+,assign,),*,2,end,.]
+[256,270,40,257,44,258,41,59,259,270,44,270,44,270,58,260,59,261,270,271,40,270,43,270,41,42,272,262,46]
+Parse OK!
+testfiles/testok6.pas end of parse
 
-Testing: testfiles/testok7.pas
+Testing testfiles/testok7.pas
 
-Parse Fail!
-[program,testok7,(,input,,,output,),;,var,a,:,integer,;,b,:,integer,;,c,:,integer,;,begin,a,:,=,b,+,c,*,2,end,.]
-[256,269,40,257,44,258,41,59,259,269,58,263,59,269,58,263,59,269,58,263,59,260,269,58,60,269,43,269,42,270,261,46]
-testfiles/testok7.pas end
+[program,testok7,(,input,,,output,),;,var,a,:,integer,;,b,:,integer,;,c,:,integer,;,begin,a,:=,b,+,c,*,2,end,.]
+[256,270,40,257,44,258,41,59,259,270,58,260,59,270,58,260,59,270,58,260,59,261,270,271,270,43,270,42,272,262,46]
+Parse OK!
+testfiles/testok7.pas end of parse
 
-Testing a-z programs
+Testing a-z programs 
 
-Testing: testfiles/testa.pas
+Testing testfiles/testa.pas
 
-Parse Fail!
 [-1]
-[273]
-testfiles/testa.pas end
-
-Testing: testfiles/testb.pas
-
+[275]
 Parse Fail!
-[testb,(,input,,,output,),;,var,a,,,b,,,c,:,integer,;,begin,a,:,=,b,+,c,*,2,end,.]
-[269,40,257,44,258,41,59,259,269,44,269,44,269,58,263,59,260,269,58,60,269,43,269,42,270,261,46]
-testfiles/testb.pas end
+testfiles/testa.pas end of parse
 
-Testing: testfiles/testc.pas
+Testing testfiles/testb.pas
 
+[testb,(,input,,,output,),;,var,a,,,b,,,c,:,integer,;,begin,a,:=,b,+,c,*,2,end,.]
+[270,40,257,44,258,41,59,259,270,44,270,44,270,58,260,59,261,270,271,270,43,270,42,272,262,46]
 Parse Fail!
-[program,(,input,,,output,),;,var,a,,,b,,,c,:,integer,;,begin,a,:,=,b,+,c,*,2,end,.]
-[256,40,257,44,258,41,59,259,269,44,269,44,269,58,263,59,260,269,58,60,269,43,269,42,270,261,46]
-testfiles/testc.pas end
+testfiles/testb.pas end of parse
 
-Testing: testfiles/testd.pas
+Testing testfiles/testc.pas
 
+[program,(,input,,,output,),;,var,a,,,b,,,c,:,integer,;,begin,a,:=,b,+,c,*,2,end,.]
+[256,40,257,44,258,41,59,259,270,44,270,44,270,58,260,59,261,270,271,270,43,270,42,272,262,46]
 Parse Fail!
-[program,testd,input,,,output,),;,var,a,,,b,,,c,:,integer,;,begin,a,:,=,b,+,c,*,2,end,.]
-[256,269,257,44,258,41,59,259,269,44,269,44,269,58,263,59,260,269,58,60,269,43,269,42,270,261,46]
-testfiles/testd.pas end
+testfiles/testc.pas end of parse
 
-Testing: testfiles/teste.pas
+Testing testfiles/testd.pas
 
+[program,testd,input,,,output,),;,var,a,,,b,,,c,:,integer,;,begin,a,:=,b,+,c,*,2,end,.]
+[256,270,257,44,258,41,59,259,270,44,270,44,270,58,260,59,261,270,271,270,43,270,42,272,262,46]
 Parse Fail!
-[program,teste,(,,,output,),;,var,a,,,b,,,c,:,integer,;,begin,a,:,=,b,+,c,*,2,end,.]
-[256,269,40,44,258,41,59,259,269,44,269,44,269,58,263,59,260,269,58,60,269,43,269,42,270,261,46]
-testfiles/teste.pas end
+testfiles/testd.pas end of parse
 
-Testing: testfiles/testf.pas
+Testing testfiles/teste.pas
 
+[program,teste,(,,,output,),;,var,a,,,b,,,c,:,integer,;,begin,a,:=,b,+,c,*,2,end,.]
+[256,270,40,44,258,41,59,259,270,44,270,44,270,58,260,59,261,270,271,270,43,270,42,272,262,46]
 Parse Fail!
-[program,testf,(,input,output,),;,var,a,,,b,,,c,:,integer,;,begin,a,:,=,b,+,c,*,2,end,.]
-[256,269,40,257,258,41,59,259,269,44,269,44,269,58,263,59,260,269,58,60,269,43,269,42,270,261,46]
-testfiles/testf.pas end
+testfiles/teste.pas end of parse
 
-Testing: testfiles/testg.pas
+Testing testfiles/testf.pas
 
+[program,testf,(,input,output,),;,var,a,,,b,,,c,:,integer,;,begin,a,:=,b,+,c,*,2,end,.]
+[256,270,40,257,258,41,59,259,270,44,270,44,270,58,260,59,261,270,271,270,43,270,42,272,262,46]
 Parse Fail!
-[program,testg,(,input,,,),;,var,a,,,b,,,c,:,integer,;,begin,a,:,=,b,+,c,*,2,end,.]
-[256,269,40,257,44,41,59,259,269,44,269,44,269,58,263,59,260,269,58,60,269,43,269,42,270,261,46]
-testfiles/testg.pas end
+testfiles/testf.pas end of parse
 
-Testing: testfiles/testh.pas
+Testing testfiles/testg.pas
 
+[program,testg,(,input,,,),;,var,a,,,b,,,c,:,integer,;,begin,a,:=,b,+,c,*,2,end,.]
+[256,270,40,257,44,41,59,259,270,44,270,44,270,58,260,59,261,270,271,270,43,270,42,272,262,46]
 Parse Fail!
-[program,testh,(,input,,,output,;,var,a,,,b,,,c,:,integer,;,begin,a,:,=,b,+,c,*,2,end,.]
-[256,269,40,257,44,258,59,259,269,44,269,44,269,58,263,59,260,269,58,60,269,43,269,42,270,261,46]
-testfiles/testh.pas end
+testfiles/testg.pas end of parse
 
-Testing: testfiles/testi.pas
+Testing testfiles/testh.pas
 
+[program,testh,(,input,,,output,;,var,a,,,b,,,c,:,integer,;,begin,a,:=,b,+,c,*,2,end,.]
+[256,270,40,257,44,258,59,259,270,44,270,44,270,58,260,59,261,270,271,270,43,270,42,272,262,46]
 Parse Fail!
-[program,testi,(,input,,,output,),var,a,,,b,,,c,:,integer,;,begin,a,:,=,b,+,c,*,2,end,.]
-[256,269,40,257,44,258,41,259,269,44,269,44,269,58,263,59,260,269,58,60,269,43,269,42,270,261,46]
-testfiles/testi.pas end
+testfiles/testh.pas end of parse
 
-Testing: testfiles/testj.pas
+Testing testfiles/testi.pas
 
+[program,testi,(,input,,,output,),var,a,,,b,,,c,:,integer,;,begin,a,:=,b,+,c,*,2,end,.]
+[256,270,40,257,44,258,41,259,270,44,270,44,270,58,260,59,261,270,271,270,43,270,42,272,262,46]
 Parse Fail!
-[program,testj,(,input,,,output,),;,a,,,b,,,c,:,integer,;,begin,a,:,=,b,+,c,*,2,end,.]
-[256,269,40,257,44,258,41,59,269,44,269,44,269,58,263,59,260,269,58,60,269,43,269,42,270,261,46]
-testfiles/testj.pas end
+testfiles/testi.pas end of parse
 
-Testing: testfiles/testk.pas
+Testing testfiles/testj.pas
 
+[program,testj,(,input,,,output,),;,a,,,b,,,c,:,integer,;,begin,a,:=,b,+,c,*,2,end,.]
+[256,270,40,257,44,258,41,59,270,44,270,44,270,58,260,59,261,270,271,270,43,270,42,272,262,46]
 Parse Fail!
-[program,testk,(,input,,,output,),;,var,,,b,,,c,:,integer,;,begin,a,:,=,b,+,c,*,2,end,.]
-[256,269,40,257,44,258,41,59,259,44,269,44,269,58,263,59,260,269,58,60,269,43,269,42,270,261,46]
-testfiles/testk.pas end
+testfiles/testj.pas end of parse
 
-Testing: testfiles/testl.pas
+Testing testfiles/testk.pas
 
+[program,testk,(,input,,,output,),;,var,,,b,,,c,:,integer,;,begin,a,:=,b,+,c,*,2,end,.]
+[256,270,40,257,44,258,41,59,259,44,270,44,270,58,260,59,261,270,271,270,43,270,42,272,262,46]
 Parse Fail!
-[program,testl,(,input,,,output,),;,var,a,b,,,c,:,integer,;,begin,a,:,=,b,+,c,*,2,end,.]
-[256,269,40,257,44,258,41,59,259,269,269,44,269,58,263,59,260,269,58,60,269,43,269,42,270,261,46]
-testfiles/testl.pas end
+testfiles/testk.pas end of parse
 
-Testing: testfiles/testm.pas
+Testing testfiles/testl.pas
 
+[program,testl,(,input,,,output,),;,var,a,b,,,c,:,integer,;,begin,a,:=,b,+,c,*,2,end,.]
+[256,270,40,257,44,258,41,59,259,270,270,44,270,58,260,59,261,270,271,270,43,270,42,272,262,46]
 Parse Fail!
-[program,testm,(,input,,,output,),;,var,a,,,b,,,c,integer,;,begin,a,:,=,b,+,c,*,2,end,.]
-[256,269,40,257,44,258,41,59,259,269,44,269,44,269,263,59,260,269,58,60,269,43,269,42,270,261,46]
-testfiles/testm.pas end
+testfiles/testl.pas end of parse
 
-Testing: testfiles/testn.pas
+Testing testfiles/testm.pas
 
+[program,testm,(,input,,,output,),;,var,a,,,b,,,c,integer,;,begin,a,:=,b,+,c,*,2,end,.]
+[256,270,40,257,44,258,41,59,259,270,44,270,44,270,260,59,261,270,271,270,43,270,42,272,262,46]
 Parse Fail!
-[program,testn,(,input,,,output,),;,var,a,,,b,,,c,:,;,begin,a,:,=,b,+,c,*,2,end,.]
-[256,269,40,257,44,258,41,59,259,269,44,269,44,269,58,59,260,269,58,60,269,43,269,42,270,261,46]
-testfiles/testn.pas end
+testfiles/testm.pas end of parse
 
-Testing: testfiles/testo.pas
+Testing testfiles/testn.pas
 
+[program,testn,(,input,,,output,),;,var,a,,,b,,,c,:,;,begin,a,:=,b,+,c,*,2,end,.]
+[256,270,40,257,44,258,41,59,259,270,44,270,44,270,58,59,261,270,271,270,43,270,42,272,262,46]
 Parse Fail!
-[program,testo,(,input,,,output,),;,var,a,,,b,,,c,:,integer,begin,a,:,=,b,+,c,*,2,end,.]
-[256,269,40,257,44,258,41,59,259,269,44,269,44,269,58,263,260,269,58,60,269,43,269,42,270,261,46]
-testfiles/testo.pas end
+testfiles/testn.pas end of parse
 
-Testing: testfiles/testp.pas
+Testing testfiles/testo.pas
 
+[program,testo,(,input,,,output,),;,var,a,,,b,,,c,:,integer,begin,a,:=,b,+,c,*,2,end,.]
+[256,270,40,257,44,258,41,59,259,270,44,270,44,270,58,260,261,270,271,270,43,270,42,272,262,46]
 Parse Fail!
-[program,testp,(,input,,,output,),;,var,a,,,b,,,c,:,integer,;,a,:,=,b,+,c,*,2,end,.]
-[256,269,40,257,44,258,41,59,259,269,44,269,44,269,58,263,59,269,58,60,269,43,269,42,270,261,46]
-testfiles/testp.pas end
+testfiles/testo.pas end of parse
 
-Testing: testfiles/testq.pas
+Testing testfiles/testp.pas
 
+[program,testp,(,input,,,output,),;,var,a,,,b,,,c,:,integer,;,a,:=,b,+,c,*,2,end,.]
+[256,270,40,257,44,258,41,59,259,270,44,270,44,270,58,260,59,270,271,270,43,270,42,272,262,46]
 Parse Fail!
-[program,testq,(,input,,,output,),;,var,a,,,b,,,c,:,integer,;,begin,:,=,b,+,c,*,2,end,.]
-[256,269,40,257,44,258,41,59,259,269,44,269,44,269,58,263,59,260,58,60,269,43,269,42,270,261,46]
-testfiles/testq.pas end
+testfiles/testp.pas end of parse
 
-Testing: testfiles/testr.pas
+Testing testfiles/testq.pas
 
+[program,testq,(,input,,,output,),;,var,a,,,b,,,c,:,integer,;,begin,:=,b,+,c,*,2,end,.]
+[256,270,40,257,44,258,41,59,259,270,44,270,44,270,58,260,59,261,271,270,43,270,42,272,262,46]
 Parse Fail!
+testfiles/testq.pas end of parse
+
+Testing testfiles/testr.pas
+
 [program,testr,(,input,,,output,),;,var,a,,,b,,,c,:,integer,;,begin,a,=,b,+,c,*,2,end,.]
-[256,269,40,257,44,258,41,59,259,269,44,269,44,269,58,263,59,260,269,60,269,43,269,42,270,261,46]
-testfiles/testr.pas end
-
-Testing: testfiles/tests.pas
-
+[256,270,40,257,44,258,41,59,259,270,44,270,44,270,58,260,59,261,270,273,270,43,270,42,272,262,46]
 Parse Fail!
+testfiles/testr.pas end of parse
+
+Testing testfiles/tests.pas
+
 [program,tests,(,input,,,output,),;,var,a,,,b,,,c,:,integer,;,begin,a,:,b,+,c,*,2,end,.]
-[256,269,40,257,44,258,41,59,259,269,44,269,44,269,58,263,59,260,269,58,269,43,269,42,270,261,46]
-testfiles/tests.pas end
-
-Testing: testfiles/testt.pas
-
+[256,270,40,257,44,258,41,59,259,270,44,270,44,270,58,260,59,261,270,58,270,43,270,42,272,262,46]
 Parse Fail!
+testfiles/tests.pas end of parse
+
+Testing testfiles/testt.pas
+
 [program,testt,(,input,,,output,),;,var,a,,,b,,,c,:,integer,;,begin,a,b,+,c,*,2,end,.]
-[256,269,40,257,44,258,41,59,259,269,44,269,44,269,58,263,59,260,269,269,43,269,42,270,261,46]
-testfiles/testt.pas end
-
-Testing: testfiles/testu.pas
-
+[256,270,40,257,44,258,41,59,259,270,44,270,44,270,58,260,59,261,270,270,43,270,42,272,262,46]
 Parse Fail!
-[program,testu,(,input,,,output,),;,var,a,,,b,,,c,:,integer,;,begin,a,:,=,+,c,*,2,end,.]
-[256,269,40,257,44,258,41,59,259,269,44,269,44,269,58,263,59,260,269,58,60,43,269,42,270,261,46]
-testfiles/testu.pas end
+testfiles/testt.pas end of parse
 
-Testing: testfiles/testv.pas
+Testing testfiles/testu.pas
 
+[program,testu,(,input,,,output,),;,var,a,,,b,,,c,:,integer,;,begin,a,:=,+,c,*,2,end,.]
+[256,270,40,257,44,258,41,59,259,270,44,270,44,270,58,260,59,261,270,271,43,270,42,272,262,46]
 Parse Fail!
-[program,testv,(,input,,,output,),;,var,a,,,b,,,c,:,integer,;,begin,a,:,=,b,c,*,2,end,.]
-[256,269,40,257,44,258,41,59,259,269,44,269,44,269,58,263,59,260,269,58,60,269,269,42,270,261,46]
-testfiles/testv.pas end
+testfiles/testu.pas end of parse
 
-Testing: testfiles/testw.pas
+Testing testfiles/testv.pas
 
+[program,testv,(,input,,,output,),;,var,a,,,b,,,c,:,integer,;,begin,a,:=,b,c,*,2,end,.]
+[256,270,40,257,44,258,41,59,259,270,44,270,44,270,58,260,59,261,270,271,270,270,42,272,262,46]
 Parse Fail!
-[program,testw,(,input,,,output,),;,var,a,,,b,,,c,:,integer,;,begin,a,:,=,b,+,c,2,end,.]
-[256,269,40,257,44,258,41,59,259,269,44,269,44,269,58,263,59,260,269,58,60,269,43,269,270,261,46]
-testfiles/testw.pas end
+testfiles/testv.pas end of parse
 
-Testing: testfiles/testx.pas
+Testing testfiles/testw.pas
 
+[program,testw,(,input,,,output,),;,var,a,,,b,,,c,:,integer,;,begin,a,:=,b,+,c,-,2,end,.]
+[256,270,40,257,44,258,41,59,259,270,44,270,44,270,58,260,59,261,270,271,270,43,270,273,272,262,46]
 Parse Fail!
-[program,testx,(,input,,,output,),;,var,a,,,b,,,c,:,integer,;,begin,a,:,=,b,+,c,*,2,;,end,.]
-[256,269,40,257,44,258,41,59,259,269,44,269,44,269,58,263,59,260,269,58,60,269,43,269,42,270,59,261,46]
-testfiles/testx.pas end
+testfiles/testw.pas end of parse
 
-Testing: testfiles/testy.pas
+Testing testfiles/testx.pas
 
+[program,testx,(,input,,,output,),;,var,a,,,b,,,c,:,integer,;,begin,a,:=,b,+,c,*,2,;,end,.]
+[256,270,40,257,44,258,41,59,259,270,44,270,44,270,58,260,59,261,270,271,270,43,270,42,272,59,262,46]
 Parse Fail!
-[program,testy,(,input,,,output,),;,var,a,,,b,,,c,:,integer,;,begin,a,:,=,b,+,c,*,2,.]
-[256,269,40,257,44,258,41,59,259,269,44,269,44,269,58,263,59,260,269,58,60,269,43,269,42,270,46]
-testfiles/testy.pas end
+testfiles/testx.pas end of parse
 
-Testing: testfiles/testz.pas
+Testing testfiles/testy.pas
 
+[program,testy,(,input,,,output,),;,var,a,,,b,,,c,:,integer,;,begin,a,:=,b,+,c,*,2,.]
+[256,270,40,257,44,258,41,59,259,270,44,270,44,270,58,260,59,261,270,271,270,43,270,42,272,46]
 Parse Fail!
-[program,testz,(,input,,,output,),;,var,a,,,b,,,c,:,integer,;,begin,a,:,=,b,+,c,*,2,end,-1]
-[256,269,40,257,44,258,41,59,259,269,44,269,44,269,58,263,59,260,269,58,60,269,43,269,42,270,261,273]
-testfiles/testz.pas end
+testfiles/testy.pas end of parse
 
-Testing fun programs
+Testing testfiles/testz.pas
 
-Testing: testfiles/fun1.pas
-
+[program,testz,(,input,,,output,),;,var,a,,,b,,,c,:,integer,;,begin,a,:=,b,+,c,*,2,end,-1]
+[256,270,40,257,44,258,41,59,259,270,44,270,44,270,58,260,59,261,270,271,270,43,270,42,272,262,275]
 Parse Fail!
-[program,fun1,(,input,,,output,),;,var,a,,,b,,,a,:,integer,;,begin,a,:,=,b,+,c,*,2,end,.]
-[256,269,40,257,44,258,41,59,259,269,44,269,44,269,58,263,59,260,269,58,60,269,43,269,42,270,261,46]
-testfiles/fun1.pas end
+testfiles/testz.pas end of parse
 
-Testing: testfiles/fun2.pas
+Testing fun programs 
 
-Testing OK programs
+Testing testfiles/fun1.pas
 
-Testing: testfiles/testok1.pas
+[program,fun1,(,input,,,output,),;,var,a,,,b,,,a,:,integer,;,begin,a,:=,b,+,c,*,2,end,.]
+[256,270,40,257,44,258,41,59,259,270,44,270,44,270,58,260,59,261,270,271,270,43,270,42,272,262,46]
+Parse OK!
+testfiles/fun1.pas end of parse
 
+Testing testfiles/fun2.pas
+
+[program,fun2,(,input,,,output,),;,var,a,,,b,,,c,:,integer,;,begin,3,a,:=,b,+,c,*,2,end,.]
+[256,270,40,257,44,258,41,59,259,270,44,270,44,270,58,260,59,261,272,270,271,270,43,270,42,272,262,46]
 Parse Fail!
-[program,testok1,(,input,,,output,),;,var,a,,,b,,,c,:,integer,;,begin,a,:,=,b,+,c,*,2,end,.]
-[256,269,40,257,44,258,41,59,259,269,44,269,44,269,58,263,59,260,269,58,60,269,43,269,42,270,261,46]
-testfiles/testok1.pas end
+testfiles/fun2.pas end of parse
 
-Testing: testfiles/testok2.pas
+Testing testfiles/fun3.pas
 
+[program,fun3,(,input,,,output,),;,var,a,,,b,,,c,:,integer,;,begin,a,:,=,b,+,c,*,2,end,.]
+[256,270,40,257,44,258,41,59,259,270,44,270,44,270,58,260,59,261,270,58,273,270,43,270,42,272,262,46]
 Parse Fail!
-[program,testok2,(,input,,,output,),;,var,a,,,b,,,c,:,integer,;,d,,,e,,,f,:,integer,;,g,,,h,,,i,:,integer,;,begin,a,:,=,b,+,c,*,2,;,d,:,=,e,+,f,*,2,;,g,:,=,h,+,i,*,2,end,.]
-[256,269,40,257,44,258,41,59,259,269,44,269,44,269,58,263,59,269,44,269,44,269,58,263,59,269,44,269,44,269,58,263,59,260,269,58,60,269,43,269,42,270,59,269,58,60,269,43,269,42,270,59,269,58,60,269,43,269,42,270,261,46]
-testfiles/testok2.pas end
+testfiles/fun3.pas end of parse
 
-Testing: testfiles/testok3.pas
+Testing testfiles/fun4.pas
 
+[program,fun4,(,input,,,output,),;,var,a,,,b,,,c,:,integer,;,d,,,e,,,f,:,integer,;,begin,a,:=,b,+,c,*,2,end,.]
+[256,270,40,257,44,258,41,59,259,270,44,270,44,270,58,260,59,270,44,270,44,270,58,260,59,261,270,271,270,43,270,42,272,262,46]
+Parse OK!
+testfiles/fun4.pas end of parse
+
+Testing testfiles/fun5.pas
+
+[program,fun5,(,input,,,output,),;,var,a,,,b,,,c,:,integer,;,begin,a,:=,b,+,c,*,2,end,.]
+[256,270,40,257,44,258,41,59,259,270,44,270,44,270,58,260,59,261,270,271,270,43,270,42,272,262,46]
+Parse OK!
+testfiles/fun5.pas end of parse
+
+Testing sem programs 
+
+Testing testfiles/sem1.pas
+
+[program,sem1,(,input,,,output,),;,var,a,,,b,,,c,:,integer,;,begin,a,:=,d,+,c,*,2,end,.]
+[256,270,40,257,44,258,41,59,259,270,44,270,44,270,58,260,59,261,270,271,270,43,270,42,272,262,46]
+Parse OK!
+testfiles/sem1.pas end of parse
+
+Testing testfiles/sem2.pas
+
+[program,sem2,(,input,,,output,),;,var,a,,,b,,,a,:,integer,;,begin,a,:=,b,+,c,*,2,end,.]
+[256,270,40,257,44,258,41,59,259,270,44,270,44,270,58,260,59,261,270,271,270,43,270,42,272,262,46]
+Parse OK!
+testfiles/sem2.pas end of parse
+
+Testing testfiles/sem3.pas
+
+[program,sem3,(,input,,,output,),;,var,a,,,b,,,c,:,double,;,begin,a,:=,b,+,c,*,2,end,.]
+[256,270,40,257,44,258,41,59,259,270,44,270,44,270,58,270,59,261,270,271,270,43,270,42,272,262,46]
 Parse Fail!
-[program,testok3,(,input,,,output,),;,var,a,,,b,,,c,:,integer,;,begin,a,:,=,2,+,6,*,8,;,b,:,=,3,+,9,*,1,;,c,:,=,4,+,1,*,1,end,.]
-[256,269,40,257,44,258,41,59,259,269,44,269,44,269,58,263,59,260,269,58,60,270,43,270,42,270,59,269,58,60,270,43,270,42,270,59,269,58,60,270,43,270,42,270,261,46]
-testfiles/testok3.pas end
+testfiles/sem3.pas end of parse
 
-Testing: testfiles/testok4.pas
+Testing testfiles/sem4.pas
 
-Parse Fail!
-[program,testok4,(,input,,,output,),;,var,a,,,b,,,c,:,integer,;,dd,,,ee,,,ff,:,integer,;,begin,a,:,=,b,+,c,*,2,end,.]
-[256,269,40,257,44,258,41,59,259,269,44,269,44,269,58,263,59,269,44,269,44,269,58,263,59,260,269,58,60,269,43,269,42,270,261,46]
-testfiles/testok4.pas end
+[program,sem4,(,input,,,output,),;,var,a,,,b,,,c,:,integer,;,d,,,e,,,f,:,real,;,begin,f,:=,b,+,c,*,2,end,.]
+[256,270,40,257,44,258,41,59,259,270,44,270,44,270,58,260,59,270,44,270,44,270,58,264,59,261,270,271,270,43,270,42,272,262,46]
+Parse OK!
+testfiles/sem4.pas end of parse
 
-Testing: testfiles/testok5.pas
+Testing testfiles/sem5.pas
 
-Parse Fail!
-[program,testok5,(,input,,,output,),;,var,x,,,y,,,z,:,integer,;,a,:,integer,;,b,:,integer,;,c,:,integer,;,begin,x,:,=,y,+,z,*,2,;,a,:,=,b,+,c,*,2,end,.]
-[256,269,40,257,44,258,41,59,259,269,44,269,44,269,58,263,59,269,58,263,59,269,58,263,59,269,58,263,59,260,269,58,60,269,43,269,42,270,59,269,58,60,269,43,269,42,270,261,46]
-testfiles/testok5.pas end
+[program,sem5,(,input,,,output,),;,var,a,,,b,,,c,:,integer,;,d,,,e,,,f,:,real,;,begin,a,:=,d,+,e,*,2,end,.]
+[256,270,40,257,44,258,41,59,259,270,44,270,44,270,58,260,59,270,44,270,44,270,58,264,59,261,270,271,270,43,270,42,272,262,46]
+Parse OK!
+testfiles/sem5.pas end of parse
 
-Testing: testfiles/testok6.pas
-
-Parse Fail!
-[program,testok6,(,input,,,output,),;,var,id,,,number,,,assign,:,integer,;,begin,id,:,=,(,number,+,assign,),*,2,end,.]
-[256,269,40,257,44,258,41,59,259,269,44,269,44,269,58,263,59,260,269,58,60,40,269,43,269,41,42,270,261,46]
-testfiles/testok6.pas end
-
-Testing: testfiles/testok7.pas
-
-Parse Fail!
-[program,testok7,(,input,,,output,),;,var,a,:,integer,;,b,:,integer,;,c,:,integer,;,begin,a,:,=,b,+,c,*,2,end,.]
-[256,269,40,257,44,258,41,59,259,269,58,263,59,269,58,263,59,269,58,263,59,260,269,58,60,269,43,269,42,270,261,46]
-testfiles/testok7.pas end
-
-Testing a-z programs
-
-Testing: testfiles/testa.pas
-
-Parse Fail!
-[-1]
-[273]
-testfiles/testa.pas end
-
-Testing: testfiles/testb.pas
-
-Parse Fail!
-[testb,(,input,,,output,),;,var,a,,,b,,,c,:,integer,;,begin,a,:,=,b,+,c,*,2,end,.]
-[269,40,257,44,258,41,59,259,269,44,269,44,269,58,263,59,260,269,58,60,269,43,269,42,270,261,46]
-testfiles/testb.pas end
-
-Testing: testfiles/testc.pas
-
-Parse Fail!
-[program,(,input,,,output,),;,var,a,,,b,,,c,:,integer,;,begin,a,:,=,b,+,c,*,2,end,.]
-[256,40,257,44,258,41,59,259,269,44,269,44,269,58,263,59,260,269,58,60,269,43,269,42,270,261,46]
-testfiles/testc.pas end
-
-Testing: testfiles/testd.pas
-
-Parse Fail!
-[program,testd,input,,,output,),;,var,a,,,b,,,c,:,integer,;,begin,a,:,=,b,+,c,*,2,end,.]
-[256,269,257,44,258,41,59,259,269,44,269,44,269,58,263,59,260,269,58,60,269,43,269,42,270,261,46]
-testfiles/testd.pas end
-
-Testing: testfiles/teste.pas
-
-Parse Fail!
-[program,teste,(,,,output,),;,var,a,,,b,,,c,:,integer,;,begin,a,:,=,b,+,c,*,2,end,.]
-[256,269,40,44,258,41,59,259,269,44,269,44,269,58,263,59,260,269,58,60,269,43,269,42,270,261,46]
-testfiles/teste.pas end
-
-Testing: testfiles/testf.pas
-
-Parse Fail!
-[program,testf,(,input,output,),;,var,a,,,b,,,c,:,integer,;,begin,a,:,=,b,+,c,*,2,end,.]
-[256,269,40,257,258,41,59,259,269,44,269,44,269,58,263,59,260,269,58,60,269,43,269,42,270,261,46]
-testfiles/testf.pas end
-
-Testing: testfiles/testg.pas
-
-Parse Fail!
-[program,testg,(,input,,,),;,var,a,,,b,,,c,:,integer,;,begin,a,:,=,b,+,c,*,2,end,.]
-[256,269,40,257,44,41,59,259,269,44,269,44,269,58,263,59,260,269,58,60,269,43,269,42,270,261,46]
-testfiles/testg.pas end
-
-Testing: testfiles/testh.pas
-
-Parse Fail!
-[program,testh,(,input,,,output,;,var,a,,,b,,,c,:,integer,;,begin,a,:,=,b,+,c,*,2,end,.]
-[256,269,40,257,44,258,59,259,269,44,269,44,269,58,263,59,260,269,58,60,269,43,269,42,270,261,46]
-testfiles/testh.pas end
-
-Testing: testfiles/testi.pas
-
-Parse Fail!
-[program,testi,(,input,,,output,),var,a,,,b,,,c,:,integer,;,begin,a,:,=,b,+,c,*,2,end,.]
-[256,269,40,257,44,258,41,259,269,44,269,44,269,58,263,59,260,269,58,60,269,43,269,42,270,261,46]
-testfiles/testi.pas end
-
-Testing: testfiles/testj.pas
-
-Parse Fail!
-[program,testj,(,input,,,output,),;,a,,,b,,,c,:,integer,;,begin,a,:,=,b,+,c,*,2,end,.]
-[256,269,40,257,44,258,41,59,269,44,269,44,269,58,263,59,260,269,58,60,269,43,269,42,270,261,46]
-testfiles/testj.pas end
-
-Testing: testfiles/testk.pas
-
-Parse Fail!
-[program,testk,(,input,,,output,),;,var,,,b,,,c,:,integer,;,begin,a,:,=,b,+,c,*,2,end,.]
-[256,269,40,257,44,258,41,59,259,44,269,44,269,58,263,59,260,269,58,60,269,43,269,42,270,261,46]
-testfiles/testk.pas end
-
-Testing: testfiles/testl.pas
-
-Parse Fail!
-[program,testl,(,input,,,output,),;,var,a,b,,,c,:,integer,;,begin,a,:,=,b,+,c,*,2,end,.]
-[256,269,40,257,44,258,41,59,259,269,269,44,269,58,263,59,260,269,58,60,269,43,269,42,270,261,46]
-testfiles/testl.pas end
-
-Testing: testfiles/testm.pas
-
-Parse Fail!
-[program,testm,(,input,,,output,),;,var,a,,,b,,,c,integer,;,begin,a,:,=,b,+,c,*,2,end,.]
-[256,269,40,257,44,258,41,59,259,269,44,269,44,269,263,59,260,269,58,60,269,43,269,42,270,261,46]
-testfiles/testm.pas end
-
-Testing: testfiles/testn.pas
-
-Parse Fail!
-[program,testn,(,input,,,output,),;,var,a,,,b,,,c,:,;,begin,a,:,=,b,+,c,*,2,end,.]
-[256,269,40,257,44,258,41,59,259,269,44,269,44,269,58,59,260,269,58,60,269,43,269,42,270,261,46]
-testfiles/testn.pas end
-
-Testing: testfiles/testo.pas
-
-Parse Fail!
-[program,testo,(,input,,,output,),;,var,a,,,b,,,c,:,integer,begin,a,:,=,b,+,c,*,2,end,.]
-[256,269,40,257,44,258,41,59,259,269,44,269,44,269,58,263,260,269,58,60,269,43,269,42,270,261,46]
-testfiles/testo.pas end
-
-Testing: testfiles/testp.pas
-
-Parse Fail!
-[program,testp,(,input,,,output,),;,var,a,,,b,,,c,:,integer,;,a,:,=,b,+,c,*,2,end,.]
-[256,269,40,257,44,258,41,59,259,269,44,269,44,269,58,263,59,269,58,60,269,43,269,42,270,261,46]
-testfiles/testp.pas end
-
-Testing: testfiles/testq.pas
-
-Parse Fail!
-[program,testq,(,input,,,output,),;,var,a,,,b,,,c,:,integer,;,begin,:,=,b,+,c,*,2,end,.]
-[256,269,40,257,44,258,41,59,259,269,44,269,44,269,58,263,59,260,58,60,269,43,269,42,270,261,46]
-testfiles/testq.pas end
-
-Testing: testfiles/testr.pas
-
-Parse Fail!
-[program,testr,(,input,,,output,),;,var,a,,,b,,,c,:,integer,;,begin,a,=,b,+,c,*,2,end,.]
-[256,269,40,257,44,258,41,59,259,269,44,269,44,269,58,263,59,260,269,60,269,43,269,42,270,261,46]
-testfiles/testr.pas end
-
-Testing: testfiles/tests.pas
-
-Parse Fail!
-[program,tests,(,input,,,output,),;,var,a,,,b,,,c,:,integer,;,begin,a,:,b,+,c,*,2,end,.]
-[256,269,40,257,44,258,41,59,259,269,44,269,44,269,58,263,59,260,269,58,269,43,269,42,270,261,46]
-testfiles/tests.pas end
-
-Testing: testfiles/testt.pas
-
-Parse Fail!
-[program,testt,(,input,,,output,),;,var,a,,,b,,,c,:,integer,;,begin,a,b,+,c,*,2,end,.]
-[256,269,40,257,44,258,41,59,259,269,44,269,44,269,58,263,59,260,269,269,43,269,42,270,261,46]
-testfiles/testt.pas end
-
-Testing: testfiles/testu.pas
-
-Parse Fail!
-[program,testu,(,input,,,output,),;,var,a,,,b,,,c,:,integer,;,begin,a,:,=,+,c,*,2,end,.]
-[256,269,40,257,44,258,41,59,259,269,44,269,44,269,58,263,59,260,269,58,60,43,269,42,270,261,46]
-testfiles/testu.pas end
-
-Testing: testfiles/testv.pas
-
-Parse Fail!
-[program,testv,(,input,,,output,),;,var,a,,,b,,,c,:,integer,;,begin,a,:,=,b,c,*,2,end,.]
-[256,269,40,257,44,258,41,59,259,269,44,269,44,269,58,263,59,260,269,58,60,269,269,42,270,261,46]
-testfiles/testv.pas end
-
-Testing: testfiles/testw.pas
-
-Parse Fail!
-[program,testw,(,input,,,output,),;,var,a,,,b,,,c,:,integer,;,begin,a,:,=,b,+,c,2,end,.]
-[256,269,40,257,44,258,41,59,259,269,44,269,44,269,58,263,59,260,269,58,60,269,43,269,270,261,46]
-testfiles/testw.pas end
-
-Testing: testfiles/testx.pas
-
-Parse Fail!
-[program,testx,(,input,,,output,),;,var,a,,,b,,,c,:,integer,;,begin,a,:,=,b,+,c,*,2,;,end,.]
-[256,269,40,257,44,258,41,59,259,269,44,269,44,269,58,263,59,260,269,58,60,269,43,269,42,270,59,261,46]
-testfiles/testx.pas end
-
-Testing: testfiles/testy.pas
-
-Parse Fail!
-[program,testy,(,input,,,output,),;,var,a,,,b,,,c,:,integer,;,begin,a,:,=,b,+,c,*,2,.]
-[256,269,40,257,44,258,41,59,259,269,44,269,44,269,58,263,59,260,269,58,60,269,43,269,42,270,46]
-testfiles/testy.pas end
-
-Testing: testfiles/testz.pas
-
-Parse Fail!
-[program,testz,(,input,,,output,),;,var,a,,,b,,,c,:,integer,;,begin,a,:,=,b,+,c,*,2,end,-1]
-[256,269,40,257,44,258,41,59,259,269,44,269,44,269,58,263,59,260,269,58,60,269,43,269,42,270,261,273]
-testfiles/testz.pas end
-
-Testing fun programs
-
-Testing: testfiles/fun1.pas
-
-Parse Fail!
-[program,fun1,(,input,,,output,),;,var,a,,,b,,,a,:,integer,;,begin,a,:,=,b,+,c,*,2,end,.]
-[256,269,40,257,44,258,41,59,259,269,44,269,44,269,58,263,59,260,269,58,60,269,43,269,42,270,261,46]
-testfiles/fun1.pas end
-
-Testing: testfiles/fun2.pas
