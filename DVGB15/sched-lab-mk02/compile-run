@@ -1,0 +1,1 @@
+gcc -Werror -o task-sched task-gen.o task-proc.o task.o task-sched.c -lm && ./task-sched
