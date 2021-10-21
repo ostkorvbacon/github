@@ -24,7 +24,12 @@ sch_task* queue[LENGTH]={NULL};
 FILE *fp;
 
 void init_task_buf_state(void) {
-fp=fopen("output.txt","w");
+for (int j=0;j<200;j++) {
+		queue[j]=NULL;
+}
+
+	fp=fopen("output.txt","w");
+ i=0;
 	// Initialize your local queue / task storage
 	// and any other variables your scheduler will use
 }
@@ -37,7 +42,38 @@ void sort() {
 		k=0;
 		while (queue[j+1]!=NULL) {
 
-			if (queue[j]->duration>queue[j+1]->duration){
+			if (queue[j]->deadline<queue[j+1]->deadline){
+
+				temp=queue[j+1];
+				queue[j+1]=queue[j];
+				queue[j]=temp;
+				k=1;
+
+			}
+
+			if (queue[j]->deadline==queue[j+1]->deadline && queue[j]->arrival<queue[j+1]->arrival){
+
+				temp=queue[j+1];
+				queue[j+1]=queue[j];
+				queue[j]=temp;
+				k=1;
+
+			}
+
+			j++;
+		}
+	}
+}
+
+void sort2() {
+	int k=1;
+	int j=0;
+	sch_task* temp=NULL;
+	while(k){
+		k=0;
+		while (queue[j+1]!=NULL) {
+
+			if (queue[j]->abs_deadline<queue[j+1]->abs_deadline){
 
 				temp=queue[j+1];
 				queue[j+1]=queue[j];
@@ -49,6 +85,7 @@ void sort() {
 		}
 	}
 }
+
 
 i64 sched_with_rm(void) {
 
@@ -73,20 +110,33 @@ i64 sched_with_rm(void) {
 		fprintf(fp,"\n");
 		fprintf(fp,"%ld\n",get_time());
 		fprintf(fp,"%p\n",peek_task());
-		if (peek_task()) fprintf(fp, "%ld\n",peek_task()->arrival );
+		//if (peek_task()) fprintf(fp, "%ld\n",peek_task()->arrival );
 
 		for (int w=0;w<=i;w++)	{
 
 			fprintf(fp,"task: %p i=%d\n", queue[w],i);
-			if (queue[w]) fprintf(fp, "%ld\n",queue[w]->arrival );
+			if (queue[w]) fprintf(fp, "arrival: %ld Deadline: %ld\n",queue[w]->arrival,queue[w]->deadline);
 		}
 		fprintf(fp,"\n");
 }
+		sort();
+
+		for (int w=0;w<=i;w++)	{
+
+			fprintf(fp,"task: %p i=%d\n", queue[w],i);
+			if (queue[w]) fprintf(fp, "arrival: %ld Deadline: %ld\n",queue[w]->arrival,queue[w]->deadline);
+		}
 
 		if(!peek_task()){
 			process_task(queue[i]);
 			queue[i]=NULL;
 			if (i!=0) i--;
+		}
+
+		else if (queue[i]!=NULL && peek_task()->deadline>queue[i]->deadline /*&& ((queue[i]->arrival/queue[i]->deadline)<=(peek_task()->arrival/peek_task()->deadline))*/) {
+			sch_task* temp2=preempt_task();
+			process_task(queue[i]);
+			queue[i]=temp2;
 		}
 
 
@@ -96,8 +146,10 @@ i64 sched_with_rm(void) {
 
 	}
 //printf("Slut 0\n\n" );
+  fclose(fp);
 	return 0;
 }
+
 
 i64 sched_with_rm_hard(void) {
 	if (0) { // Check if there are more tasks to be processed
@@ -106,11 +158,67 @@ i64 sched_with_rm_hard(void) {
 	return 0;
 }
 
+
+
 i64 sched_with_edf(void) {
-	if (0) { // Check if there are more tasks to be processed
+
+	if (tasks_remain()){
+		//printf("Start\n");
+		sch_task* temp=get_current_sch_task();
+
+//printf("Hit i=%d\n",i );
+	if (i==0 && queue[i]==NULL) {
+			queue[i]=temp;
+			temp=get_current_sch_task();
+
+		}
+
+			while (temp) {
+				i++;
+				queue[i]=temp;
+				temp=get_current_sch_task();
+			}
+
+
+
+
+		/*if (i!=0 || 1){
+		fprintf(fp,"\n");
+		fprintf(fp,"%ld\n",get_time());
+		fprintf(fp,"%p\n",peek_task());
+		//if (peek_task()) fprintf(fp, "%ld\n",peek_task()->arrival );
+
+		for (int w=0;w<=i;w++)	{
+
+			fprintf(fp,"task: %p i=%d\n", queue[w],i);
+			if (queue[w]) fprintf(fp, "%ld %ld\n",queue[w]->arrival,queue[w]->abs_deadline);
+		}
+		fprintf(fp,"\n");
+}*/
+		sort2();
+
+	/*	for (int w=0;w<=i;w++)	{
+
+			fprintf(fp,"task: %p i=%d\n", queue[w],i);
+			if (queue[w]) fprintf(fp, "%ld %ld\n",queue[w]->arrival,queue[w]->abs_deadline);
+		}*/
+
+ 	if(!peek_task()){
+			process_task(queue[i]);
+			queue[i]=NULL;
+			if (i!=0) i--;
+		}
+
+		else if (queue[i]!=NULL && peek_task()->abs_deadline>queue[i]->abs_deadline) {
+			sch_task* temp2=preempt_task();
+			process_task(queue[i]);
+			queue[i]=temp2;
+		}
 		return 1;
 	}
+	fclose(fp);
 	return 0;
+
 }
 
 i64 sched_with_edf_hard(void) {
@@ -135,21 +243,22 @@ int main(int argc, char *argv[]) {
 		add_custom_task(0, 30, 75);
 		run_custom_prog(sched_with_rm);
 	}
-	if(run_tests) {
+	if(run_tests || 0) {
 		init_task_buf_state();
 		init_custom_prog(STD_DURATION, "test-comp-edf");
 		add_custom_task(0, 25, 50);
 		add_custom_task(0, 30, 75);
+		printf("OK Hit\n" );
 		run_custom_prog(sched_with_edf);
 	}
-	if(run_tests) {
+	if(run_tests && 0) {
 		init_task_buf_state();
 		init_custom_prog(STD_DURATION, "test-comp-rm-hard");
 		add_custom_task(0, 25, 50);
 		add_custom_task(0, 30, 75);
 		run_custom_prog(sched_with_rm_hard);
 	}
-	if(run_tests) {
+	if(run_tests && 0) {
 		init_task_buf_state();
 		init_custom_prog(STD_DURATION, "test-comp-edf-hard");
 		add_custom_task(0, 25, 50);
