@@ -22,9 +22,9 @@ int total_lateness=0;
 FILE *fp=fopen(file,"r");
 printf("File: %s\n",file);
 while (i<rows) {
-    fscanf(fp,"f:%d:%d:%d:%d:%d:%d:%d\n",&temp[0],&temp[1],&temp[2],&temp[3],&temp[4],&temp[5],&temp[6]);
-    total_response=total_response+temp[5]-temp[1];
-    total_lateness=total_lateness+temp[5]-temp[3];
+    fscanf(fp,"f:%d:%d:%d:%d:%d:%d:%d\n",&index,&arrival,&proc_time,&period,&abs_deadline,&finished,&observed_proc_time);
+    total_response=total_response+finished-arrival;
+    total_lateness=total_lateness+finished-abs_deadline;
     i++;
 
     //printf("i: %d total response time: %d total lateness: %d \n",i,total_response,total_lateness);
