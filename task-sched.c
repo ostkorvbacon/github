@@ -305,7 +305,7 @@ i64 sched_with_edf(void) {
 			if (queue[w]) fprintf(fp, "%ld %ld\n",queue[w]->arrival,queue[w]->abs_deadline);
 		}*/
 
- 	if(!peek_task()|| queue[0]!=NULL || peek_task()!=NULL){
+ 	if(!peek_task()){
 			process_task(queue[i]);
 			queue[i]=NULL;
 			if (i!=0) i--;
@@ -393,8 +393,8 @@ i64 sched_with_edf_hard(void) {
 
 int main(int argc, char *argv[]) {
 
-	i64 run_tests = 1;
-	i64 run_prog1_prog2 = 0;
+	i64 run_tests = 0;
+	i64 run_prog1_prog2 = 1;
 
 	if(run_tests) {
 
