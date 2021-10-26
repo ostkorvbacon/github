@@ -119,7 +119,7 @@ void remlate(){
 
 i64 sched_with_rm(void) {
 
-	if (tasks_remain()){
+	if (tasks_remain() || queue[0]!=NULL || peek_task()!=NULL){
 		//printf("Start\n");
 		sch_task* temp=get_current_sch_task();
 		if (i==0 && queue[i]==NULL) {
@@ -184,7 +184,7 @@ i64 sched_with_rm(void) {
 
 i64 sched_with_rm_hard(void) {
 
-	if (tasks_remain()){
+	if (tasks_remain()|| queue[0]!=NULL || peek_task()!=NULL){
 
 		sch_task* temp=get_current_sch_task();
 		if (i==0 && queue[i]==NULL) {
@@ -264,7 +264,7 @@ i64 sched_with_rm_hard(void) {
 
 i64 sched_with_edf(void) {
 
-	if (tasks_remain()){
+	if (tasks_remain()|| queue[0]!=NULL || peek_task()!=NULL){
 		//printf("Start\n");
 		sch_task* temp=get_current_sch_task();
 
@@ -305,7 +305,7 @@ i64 sched_with_edf(void) {
 			if (queue[w]) fprintf(fp, "%ld %ld\n",queue[w]->arrival,queue[w]->abs_deadline);
 		}*/
 
- 	if(!peek_task()){
+ 	if(!peek_task()|| queue[0]!=NULL || peek_task()!=NULL){
 			process_task(queue[i]);
 			queue[i]=NULL;
 			if (i!=0) i--;
@@ -325,7 +325,7 @@ i64 sched_with_edf(void) {
 /////////////////////////////////////////EDF HARD
 
 i64 sched_with_edf_hard(void) {
-	if (tasks_remain()){
+	if (tasks_remain()|| queue[0]!=NULL || peek_task()!=NULL){
 		//printf("Start\n");
 		sch_task* temp=get_current_sch_task();
 
@@ -393,7 +393,7 @@ i64 sched_with_edf_hard(void) {
 
 int main(int argc, char *argv[]) {
 
-	i64 run_tests = 0;
+	i64 run_tests = 1;
 	i64 run_prog1_prog2 = 0;
 
 	if(run_tests) {
@@ -409,7 +409,7 @@ int main(int argc, char *argv[]) {
 		init_custom_prog(STD_DURATION, "test-comp-edf");
 		add_custom_task(0, 25, 50);
 		add_custom_task(0, 30, 75);
-		printf("OK Hit\n" );
+
 		run_custom_prog(sched_with_edf);
 	}
 	if(run_tests || 0) {
@@ -419,7 +419,7 @@ int main(int argc, char *argv[]) {
 		add_custom_task(0, 30, 75);
 		run_custom_prog(sched_with_rm_hard);
 	}
-	if(run_tests || 1) {
+	if(run_tests || 0) {
 		init_task_buf_state();
 		init_custom_prog(STD_DURATION, "test-comp-edf-hard");
 		add_custom_task(0, 25, 50);
