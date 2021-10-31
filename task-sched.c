@@ -29,6 +29,8 @@ for (int j=0;j<200;j++) {
 }
 
 	fp=fopen("output.txt","w");
+	fprintf(fp,"******");
+
  i=0;
 	// Initialize your local queue / task storage
 	// and any other variables your scheduler will use
@@ -284,11 +286,11 @@ i64 sched_with_edf(void) {
 
 
 
-		/*if (i!=0 || 1){
+		if (i!=0 || 1){
 		fprintf(fp,"\n");
 		fprintf(fp,"%ld\n",get_time());
 		fprintf(fp,"%p\n",peek_task());
-		//if (peek_task()) fprintf(fp, "%ld\n",peek_task()->arrival );
+		if (peek_task()) fprintf(fp, "%ld\n",peek_task()->arrival );
 
 		for (int w=0;w<=i;w++)	{
 
@@ -296,14 +298,14 @@ i64 sched_with_edf(void) {
 			if (queue[w]) fprintf(fp, "%ld %ld\n",queue[w]->arrival,queue[w]->abs_deadline);
 		}
 		fprintf(fp,"\n");
-}*/
+}
 		sort2();
 
-	/*	for (int w=0;w<=i;w++)	{
+		for (int w=0;w<=i;w++)	{
 
 			fprintf(fp,"task: %p i=%d\n", queue[w],i);
 			if (queue[w]) fprintf(fp, "%ld %ld\n",queue[w]->arrival,queue[w]->abs_deadline);
-		}*/
+		}
 
  	if(!peek_task()){
 			process_task(queue[i]);
@@ -450,43 +452,3 @@ int main(int argc, char *argv[]) {
 }
 
 // *********************************************************************
-
-/*int j=0;
-int test=0;
-
-	sch_task* temp=NULL;
-	if (tasks_remain() || i>0 || peek_task()|| test) { // Check if there are more tasks to be processed
-		test=0;
-		queue[i]=get_current_sch_task();
-
-
-
-		while (1) {
-			i++;
-			queue[i]=get_current_sch_task();
-			if (queue[i]==NULL) {
-				i--;
-				break;
-			}
-
-		}
-
-		sort();
-
-
-
-		sch_task* current=peek_task();
-		if (!peek_task() && queue[i]!=NULL) {
-			printf("Inne %d\n",i);
-			process_task(queue[i]);
-			queue[i]=NULL;
-			printf("Prosseseras: %p\n",peek_task());
-			if (i>0) i--;
-			else {test=1;}
-		}
-	else if (queue[i]!=NULL && current->duration>queue[i]->duration) {
-			temp=preempt_task();
-			process_task(queue[i]);
-			queue[i]=temp;
-
-	}*/
