@@ -153,7 +153,7 @@
 
 /*start*/
   parseall:-
-    tell('parser.out'),
+    %tell('parser.out'),
     write('Testing OK programs '), nl, nl,
     parseFiles([
       'testfiles/testok1.pas', 'testfiles/testok2.pas', 'testfiles/testok3.pas',

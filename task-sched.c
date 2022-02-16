@@ -13,7 +13,7 @@
 #include "task-gen.h"
 #include "task-proc.h"
 
-#define LENGTH 200
+#define LENGTH 202
 
 //#define PRINT_CORRECT
 
@@ -24,9 +24,10 @@ sch_task* queue[LENGTH]={NULL};
 FILE *fp;
 
 void init_task_buf_state(void) {
-for (int j=0;j<200;j++) {
+for (int j=0;j<LENGTH;j++) {
 		queue[j]=NULL;
 }
+	printf("\nTest\n");
 
 	fp=fopen("output.txt","w");
  i=0;
@@ -311,7 +312,7 @@ i64 sched_with_edf(void) {
 			if (i!=0) i--;
 		}
 
-		else if (queue[i]!=NULL && peek_task()->abs_deadline>queue[i]->abs_deadline) {
+		else if (queue[i]!=NULL && peek_task()->abs_deadline > queue[i]->abs_deadline) {
 			sch_task* temp2=preempt_task();
 			process_task(queue[i]);
 			queue[i]=temp2;
@@ -325,6 +326,7 @@ i64 sched_with_edf(void) {
 /////////////////////////////////////////EDF HARD
 
 i64 sched_with_edf_hard(void) {
+
 	if (tasks_remain()){
 		//printf("Start\n");
 		sch_task* temp=get_current_sch_task();
@@ -393,18 +395,18 @@ i64 sched_with_edf_hard(void) {
 
 int main(int argc, char *argv[]) {
 
-	i64 run_tests = 0;
+	i64 run_tests = TRUE;
 	i64 run_prog1_prog2 = 0;
 
 	if(run_tests) {
-
+		printf("test");
 		init_task_buf_state();
 		init_custom_prog(STD_DURATION, "test-comp-rm");
 		add_custom_task(0, 25, 50);
 		add_custom_task(0, 30, 75);
 		run_custom_prog(sched_with_rm);
 	}
-	if(run_tests || 0) {
+	if(run_tests) {
 		init_task_buf_state();
 		init_custom_prog(STD_DURATION, "test-comp-edf");
 		add_custom_task(0, 25, 50);
@@ -412,14 +414,14 @@ int main(int argc, char *argv[]) {
 		printf("OK Hit\n" );
 		run_custom_prog(sched_with_edf);
 	}
-	if(run_tests || 0) {
+	if(run_tests) {
 		init_task_buf_state();
 		init_custom_prog(STD_DURATION, "test-comp-rm-hard");
 		add_custom_task(0, 25, 50);
 		add_custom_task(0, 30, 75);
 		run_custom_prog(sched_with_rm_hard);
 	}
-	if(run_tests || 1) {
+	if(run_tests) {
 		init_task_buf_state();
 		init_custom_prog(STD_DURATION, "test-comp-edf-hard");
 		add_custom_task(0, 25, 50);
