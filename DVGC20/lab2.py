@@ -19,12 +19,12 @@ def main(): # test
     txt = "3b101c091d53320c000910"
     txt2 = "071d154502010a04000419"
     txt3 = xor(txt,txt2)
-    print("Real: 3c0d094c1f523808000d09")
-    print("Fals: " + txt3)
+    print("Rätt: 3c0d094c1f523808000d09")
+    print("Fel:  " + txt3)
     if txt3 == "3c0d094c1f523808000d09":
-        print("TRUE!")
+        print("XOR funkar")
     else:
-        print("false")
+        print("XOR funkar inte")
 
 
 
