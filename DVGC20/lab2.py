@@ -1,5 +1,7 @@
 import sys
 import codecs
+import binascii
+from binascii import unhexlify
 
 
 
@@ -9,44 +11,46 @@ def strxor(a, b): # x o r two s t r i n g s of d i f f e r e n t l e n g t h s
     else:
         return "".join([chr(ord(x) ^ ord(y)) for(x, y) in zip(a, b[:len(a)])])
 
-def xor(a,b):
-    xored = []
-    for i in range(max(len(a), len(b))):
-        xored_value = ord(a[i%len(a)]) ^ ord(b[i%len(b)])
-        xored.append(hex(xored_value)[2:])
-    return ''.join(xored)
-def main(): # test
-    txt = "3b101c091d53320c000910"
-    txt2 = "071d154502010a04000419"
-    txt3 = xor(txt,txt2)
-    print("Rätt: 3c0d094c1f523808000d09")
-    print("Fel:  " + txt3)
-    if txt3 == "3c0d094c1f523808000d09":
-        print("XOR funkar")
-    else:
-        print("XOR funkar inte")
+
+def bxor(b1, b2): # use xor for bytes
+    parts = []
+    for b1, b2 in zip(b1, b2):
+        parts.append(bytes([b1 ^ b2]))
+    return b''.join(parts)
 
 
-
-def main2(): # riktig
+def main(): # riktig
+    prntlater = "Error"
     fp = open("attachment.txt", "r")
     arr = fp.read().strip().splitlines()
-    s = "the".encode("utf-8").hex()
+    guess = "The secret message is: When using"
+    testguess = ["We can factor the number 15 with",
+                "Euler would probably enjoy that n",
+                "The nice thing about Keeyloq is n",
+                "The ciphertext produced by a weak",
+                "You don't want to buy a set of ca",
+                "There are two types of cryptograp",
+                "There are two types of cyptograph",
+                "We can see the point where the ch",
+                "A (private-key)  encryption schem"]
 
+    for i in range(9):
+        cyph1 = unhexlify(arr[i])
+        cyph2 = unhexlify(arr[10])
 
-    for i in range(1):
-        new = strxor(arr[0], arr[1])
-        new2 = new.encode("utf-8").hex()
-        for i2 in range(len(new2)):
-            new3 = xor(new2[i2:len(s)+i2], s)
-            new4 = strxor(new2[i2:len(s)+i2], s)
+        new = bxor(cyph1, cyph2)
+        print(strxor(new.decode(), guess))
 
-    #        print("str         :" + new3)
+    for i in range(9):
+        cyph1 = unhexlify(arr[i])
+        cyph2 = unhexlify(arr[10])
+        
+        new = bxor(cyph1, cyph2)
 
-        #print(s)
-        #print(new2)
+        prntlater = "\ntest: message nr " + str(i+1) + "\n" + strxor(new.decode(), testguess[i])
+        print(prntlater)
+
 
 
 
 main()
-## 10 och 3 codecs.decode(s, "hex").decode('utf-8')
