@@ -23,14 +23,14 @@ def main(): # riktig
     prntlater = "Error"
     fp = open("attachment.txt", "r")
     arr = fp.read().strip().splitlines()
-    guess = "The secret message is: When using a stream cipher, never" # Sista medelandet
+    guess = "The secret message is: When using a stream cipher, never use the key more than once" # Sista medelandet
     testguess = ["We can factor the number 15 with", # Alla andra medelanden.
-                "Euler would probably enjoy that now his theorem become",
+                "Euler would probably enjoy that now his theorem becomes a corner stone",
                 "The nice thing about Keeyloq is n",
                 "The ciphertext produced by a weak encryption",
-                "You don't want to buy a set of car ",
+                "You don't want to buy a set of car keys from a guy who specializes",
                 "There are two types of cryptography",
-                "There are two types of cyptography:",
+                "There are two types of cyptography: one that allows the Government to use brute force to break the code, and one that requires the Government to use brute force to break you",
                 "We can see the point where the chip",
                 "A (private-key)  encryption scheme states 3 algorithms"]
 
