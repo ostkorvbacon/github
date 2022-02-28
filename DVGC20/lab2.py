@@ -23,8 +23,8 @@ def main(): # riktig
     prntlater = "Error"
     fp = open("attachment.txt", "r")
     arr = fp.read().strip().splitlines()
-    guess = "The secret message is: When using"
-    testguess = ["We can factor the number 15 with",
+    guess = "The secret message is: When using" # Sista medelandet
+    testguess = ["We can factor the number 15 with", #Alla andra medelanden.
                 "Euler would probably enjoy that n",
                 "The nice thing about Keeyloq is n",
                 "The ciphertext produced by a weak",
@@ -44,7 +44,7 @@ def main(): # riktig
     for i in range(9):
         cyph1 = unhexlify(arr[i])
         cyph2 = unhexlify(arr[10])
-        
+
         new = bxor(cyph1, cyph2)
 
         prntlater = "\ntest: message nr " + str(i+1) + "\n" + strxor(new.decode(), testguess[i])
