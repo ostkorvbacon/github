@@ -23,16 +23,16 @@ def main(): # riktig
     prntlater = "Error"
     fp = open("attachment.txt", "r")
     arr = fp.read().strip().splitlines()
-    guess = "The secret message is: When using" # Sista medelandet
-    testguess = ["We can factor the number 15 with", #Alla andra medelanden.
-                "Euler would probably enjoy that n",
+    guess = "The secret message is: When using a stream cipher, never" # Sista medelandet
+    testguess = ["We can factor the number 15 with", # Alla andra medelanden.
+                "Euler would probably enjoy that now his theorem become",
                 "The nice thing about Keeyloq is n",
-                "The ciphertext produced by a weak",
-                "You don't want to buy a set of ca",
-                "There are two types of cryptograp",
-                "There are two types of cyptograph",
-                "We can see the point where the ch",
-                "A (private-key)  encryption schem"]
+                "The ciphertext produced by a weak encryption",
+                "You don't want to buy a set of car ",
+                "There are two types of cryptography",
+                "There are two types of cyptography:",
+                "We can see the point where the chip",
+                "A (private-key)  encryption scheme states 3 algorithms"]
 
     for i in range(9):
         cyph1 = unhexlify(arr[i])
